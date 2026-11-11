@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markorð: 281 - 290 algengustu í íslenskum námsbókum</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            background-color: #f0f4f8; 
+            margin: 0;
+            padding: 2vh 5vw; 
+            min-height: 95vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .container { 
+            width: 100%; 
+            max-width: 1200px; 
+            background: white; 
+            padding: 30px 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            max-height: 100%;
+            overflow-y: auto;
+        }
+        h1 {
+            color: #1a73e8;
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        /* Framvindustika */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            height: 20px;
+        }
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #34a853;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        #counter { font-size: 1.2em; color: #666; font-weight: bold; margin-bottom: 10px; }
+
+        .lang-selector {
+            margin-bottom: 20px;
+            background: #fff3e0;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px solid #ffcc80;
+        }
+
+        .lang-selector select {
+            padding: 8px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            margin-left: 10px;
+            max-width: 300px;
+        }
+        
+        #target { 
+            font-size: 4em; 
+            margin: 10px 0; 
+            color: #222; 
+            font-weight: bold;
+        }
+        
+        #is-explanation {
+            font-size: 1.2em;
+            color: #333;
+            background-color: #e8f0fe;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            max-width: 80%;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .btn { 
+            padding: 12px 25px; 
+            font-size: 1.2em; 
+            margin: 5px; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 8px; 
+            background-color: #1a73e8; 
+            color: white; 
+            transition: 0.3s; 
+            font-weight: bold;
+        }
+        .btn:hover:not(:disabled) { background-color: #1557b0; transform: scale(1.02); }
+        .recording { background-color: #d93025; animation: pulse 1.5s infinite; }
+        .recording:hover { background-color: #b3140b; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #media-box { 
+            font-size: 1.1em; 
+            color: #444; 
+            text-align: left; 
+            background: #f8fbff; 
+            padding: 15px 30px; 
+            border-radius: 12px; 
+            line-height: 1.6; 
+            border-left: 6px solid #1a73e8; 
+            margin-top: 15px;
+            display: inline-block;
+            min-width: 70%;
+        }
+        #spoken {
+            margin-top: 15px; 
+            font-size: 1.4em;
+            font-style: italic; 
+            color: #555;
+        }
+        #result {
+            font-weight: bold; 
+            font-size: 1.8em; 
+            margin-top: 5px; 
+            color: #1a73e8;
+        }
+        .nav-btns { margin-top: 20px; }
+        
+        /* Fyrir nafnainnslátt */
+        #studentName {
+            font-size: 1.5em;
+            padding: 10px;
+            margin: 20px 0;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #1a73e8;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .feedback-note {
+            margin-top: 40px;
+            font-size: 0.95em;
+            color: #555;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .feedback-note a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .feedback-note a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <h1>Markorð: 281 - 290 algengustu í íslenskum námsbókum</h1>
+    
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <div class="lang-selector">
+        <label for="languageSelect"><b>🌍 Tungumál:</b></label>
+        <select id="languageSelect" onchange="updateUI()">
+            <option value="" selected disabled>Veldu tungumál...</option>
+            <option value="ar">Arabíska – العربية</option>
+            <option value="be">Belgíska (Flæmska) – Vlaams</option>
+            <option value="da">Danska – Dansk</option>
+            <option value="en">Enska – English</option>
+            <option value="tl">Filippseyska – Tagalog</option>
+            <option value="fi">Finnska – Suomi</option>
+            <option value="fr">Franska – Français</option>
+            <option value="fo">Færeyska – Føroyskt</option>
+            <option value="kl">Grænlenska – Kalaallisut</option>
+            <option value="nl">Hollenska – Nederlands</option>
+            <option value="it">Ítalska – Italiano</option>
+            <option value="ja">Japanska – 日本語</option>
+            <option value="zh">Kínverska – 中文</option>
+            <option value="ku">Kúrdíska – Kurdî</option>
+            <option value="lv">Lettneska – Latviešu</option>
+            <option value="lt">Litháíska – Lietuvių</option>
+            <option value="no">Norska – Norsk</option>
+            <option value="fa">Persneska – فارسی</option>
+            <option value="pt">Portúgalska – Português</option>
+            <option value="pl">Pólska – Polski</option>
+            <option value="ro">Rúmenska – Română</option>
+            <option value="ru">Rússneska – Русский</option>
+            <option value="es">Spænska – Español</option>
+            <option value="sv">Sænska – Svenska</option>
+            <option value="th">Tælenska – ภาษาไทย</option>
+            <option value="de">Þýska – Deutsch</option>
+            <option value="uk">Úkraínska – Українська</option>
+            <option value="vi">Víetnamska – Tiếng Việt</option>
+        </select>
+    </div>
+
+    <div id="counter"></div>
+    
+    <div id="target"></div>
+    <div id="is-explanation"></div>
+    <br>
+    <button id="record-btn" class="btn" onclick="toggleRecord()">🎤 Tala</button>
+    
+    <div id="spoken"></div>
+    <div id="result"></div>
+
+    <div id="media-box"><i>Veldu tungumál úr listanum að ofan til að sjá þýðingu.</i></div>
+
+    <div class="nav-btns">
+        <button class="btn" style="background-color: #5f6368;" onclick="prevExercise()">⬅️ Fyrri</button>
+        <button class="btn" style="background-color: #5f6368;" onclick="nextExercise()">Næsta ➡️</button>
+    </div>
+
+    <div class="feedback-note">
+        Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+    </div>
+</div>
+
+<script>
+const exerciseData = [
+    { 
+        text: "dýr", 
+        is_exp: "<b>Útskýring:</b><br>1. (Nafnorð) Lifandi vera sem er ekki manneskja eða planta (eintala og fleirtala).<br>2. (Lýsingarorð) Kostar mikla peninga. <b>Andheiti:</b> ódýr.<br><br><b>Dæmi 1:</b> Hundur er <b>dýr</b>.<br><b>Dæmi 2:</b> Bíllinn er <b>dýr</b>.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b><br>1. (اسم) حيوان.<br>2. (صفة) يكلف مالاً كثيراً (غالٍ). <b>مضاد:</b> ódýr (رخيص).<br><b>مثال 1:</b> الكلب <b>حيوان</b>.<br><b>مثال 2:</b> السيارة <b>غالية</b>.</div>",
+            "be": "<b>Uitleg:</b><br>1. (Zelfstandig naamwoord) Een levend wezen (dier).<br>2. (Bijvoeglijk naamwoord) Kost veel geld (duur). <b>Antoniem:</b> ódýr (goedkoop).<br><b>Voorbeeld 1:</b> Een hond is een <b>dier</b>.<br><b>Voorbeeld 2:</b> De auto is <b>duur</b>.",
+            "da": "<b>Forklaring:</b><br>1. (Navneord) Et levende væsen (dyr).<br>2. (Tillægsord) Koster mange penge (dyr). <b>Antonym:</b> ódýr (billig).<br><b>Eksempel 1:</b> En hund er et <b>dyr</b>.<br><b>Eksempel 2:</b> Bilen er <b>dyr</b>.",
+            "en": "<b>Explanation:</b><br>1. (Noun) A living creature (animal / animals).<br>2. (Adjective) Costs a lot of money (expensive). <b>Antonym:</b> ódýr (cheap).<br><b>Example 1:</b> A dog is an <b>animal</b>.<br><b>Example 2:</b> The car is <b>expensive</b>.",
+            "tl": "<b>Paliwanag:</b><br>1. (Pangngalan) Hayop.<br>2. (Pang-uri) Nagkakahalaga ng malaking pera (mahal). <b>Kasalungat:</b> ódýr (mura).<br><b>Halimbawa 1:</b> Ang aso ay isang <b>hayop</b>.<br><b>Halimbawa 2:</b> <b>Mahal</b> ang kotse.",
+            "fi": "<b>Selitys:</b><br>1. (Substantiivi) Elävä olento (eläin).<br>2. (Adjektiivi) Maksaa paljon rahaa (kallis). <b>Vastakohta:</b> ódýr (halpa).<br><b>Esimerkki 1:</b> Koira on <b>eläin</b>.<br><b>Esimerkki 2:</b> Auto on <b>kallis</b>.",
+            "fr": "<b>Explication:</b><br>1. (Nom) Être vivant (animal).<br>2. (Adjectif) Coûte beaucoup d'argent (cher). <b>Antonyme:</b> ódýr (bon marché).<br><b>Exemple 1:</b> Un chien est un <b>animal</b>.<br><b>Exemple 2:</b> La voiture est <b>chère</b>.",
+            "fo": "<b>Frágreiðing:</b><br>1. (Navnorð) Livandi vera (djór / dýr).<br>2. (Lýsingarorð) Kostar nógvar pengar (dýrur). <b>Andheiti:</b> bíligur.<br><b>Dømi 1:</b> Ein hundur er eitt <b>djór</b>.<br><b>Dømi 2:</b> Bilurin er <b>dýrur</b>.",
+            "kl": "<b>Nassoqqaat:</b><br>1. (Taggit) Uumasoq.<br>2. (Pissusilerut) Akisooq.<br><b>Assersuut 1:</b> Qimmeq <b>uumasuuvoq</b>.<br><b>Assersuut 2:</b> Biili <b>akisuuvoq</b>.",
+            "nl": "<b>Uitleg:</b><br>1. (Zelfstandig naamwoord) Een levend wezen (dier).<br>2. (Bijvoeglijk naamwoord) Kost veel geld (duur). <b>Antoniem:</b> ódýr (goedkoop).<br><b>Voorbeeld 1:</b> Een hond is een <b>dier</b>.<br><b>Voorbeeld 2:</b> De auto is <b>duur</b>.",
+            "it": "<b>Spiegazione:</b><br>1. (Sostantivo) Essere vivente (animale).<br>2. (Aggettivo) Costa molti soldi (costoso / caro). <b>Antonimo:</b> ódýr (economico).<br><b>Esempio 1:</b> Un cane è un <b>animale</b>.<br><b>Esempio 2:</b> L'auto è <b>costosa</b>.",
+            "ja": "<b>説明:</b><br>1. (名詞) 動物。<br>2. (形容詞) お金がたくさんかかる（値段が高い）。<b>対義語:</b> ódýr (安い)。<br><b>例文 1:</b> 犬は<b>動物</b>です。<br><b>例文 2:</b> その車は<b>高い</b>です。",
+            "zh": "<b>解释:</b><br>1. (名词) 动物。<br>2. (形容词) 花很多钱（昂贵）。<b>反义词:</b> ódýr（便宜）。<br><b>例句 1:</b> 狗是一种<b>动物</b>。<br><b>例句 2:</b> 这辆车很<b>贵</b>。",
+            "ku": "<b>Ravekirin:</b><br>1. (Navdêr) Heywan / ajel.<br>2. (Rengdêr) Biهاگران (biha). <b>Dijwate:</b> ódýr (erzan).<br><b>Mînak 1:</b> Kûçik <b>heywanek</b> e.<br><b>Mînak 2:</b> Erebeyê <b>biha</b> ye.",
+            "lv": "<b>Paskaidrojums:</b><br>1. (Lietvārds) Dzīva būtne (dzīvnieks).<br>2. (Īpašības vārds) Maksā daudz naudas (dārgs). <b>Antonīms:</b> ódýr (lēts).<br><b>Piemērs 1:</b> Suns ir <b>dzīvnieks</b>.<br><b>Piemērs 2:</b> Mašīna ir <b>dārga</b>.",
+            "lt": "<b>Paaiškinimas:</b><br>1. (Daiktavardis) Gyvūnas.<br>2. (Būdvardis) Kainuoja daug pinigų (brangus). <b>Antonimas:</b> ódýr (pigus).<br><b>Pavyzdys 1:</b> Šuo yra <b>gyvūnas</b>.<br><b>Pavyzdys 2:</b> Automobilis yra <b>brangus</b>.",
+            "no": "<b>Forklaring:</b><br>1. (Substantiv) Et levende vesen (dyr).<br>2. (Adjektiv) Koster mye penger (dyr). <b>Antonym:</b> ódýr (billig).<br><b>Eksempel 1:</b> En hund er et <b>dyr</b>.<br><b>Eksempel 2:</b> Bilen er <b>dyr</b>.",
+            "fa": "<div dir='rtl'><b>توضیح:</b><br>1. (اسم) حیوان.<br>2. (صفت) قیمت بالا دارد (گران). <b>متضاد:</b> ódýr (ارزان).<br><b>مثال 1:</b> سگ یک <b>حیوان</b> است.<br><b>مثال 2:</b> ماشین <b>گران</b> است.</div>",
+            "pt": "<b>Explicação:</b><br>1. (Substantivo) Ser vivo (animal).<br>2. (Adjetivo) Custa muito dinheiro (caro). <b>Antônimo:</b> ódýr (barato).<br><b>Exemplo 1:</b> O cão é um <b>animal</b>.<br><b>Exemplo 2:</b> O carro é <b>caro</b>.",
+            "pl": "<b>Wyjaśnienie:</b><br>1. (Rzeczownik) Żywa istota (zwierzę).<br>2. (Przymiotnik) Kosztuje dużo pieniędzy (drogi). <b>Antonim:</b> ódýr (tani).<br><b>Przykład 1:</b> Pies to <b>zwierzę</b>.<br><b>Przykład 2:</b> Samochód jest <b>drogi</b>.",
+            "ro": "<b>Explicație:</b><br>1. (Substantiv) Ființă vie (animal).<br>2. (Adjectiv) Costă mulți bani (scump). <b>Antonim:</b> ódýr (ieftin).<br><b>Exemplu 1:</b> Câinele este un <b>animal</b>.<br><b>Exemplu 2:</b> Mașina este <b>scumpă</b>.",
+            "ru": "<b>Объяснение:</b><br>1. (Существительное) Живое существо (животное).<br>2. (Прилагательное) Стоит много денег (дорогой). <b>Антоним:</b> ódýr (дешевый).<br><b>Пример 1:</b> Собака — это <b>животное</b>.<br><b>Пример 2:</b> Машина <b>дорогая</b>.",
+            "es": "<b>Explicación:</b><br>1. (Sustantivo) Ser vivo (animal).<br>2. (Adjetivo) Cuesta mucho dinero (caro). <b>Antónimo:</b> ódýr (barato).<br><b>Ejemplo 1:</b> Un perro es un <b>animal</b>.<br><b>Ejemplo 2:</b> El coche es <b>caro</b>.",
+            "sv": "<b>Förklaring:</b><br>1. (Substantiv) En levande varelse (djur).<br>2. (Adjektiv) Kostar mycket pengar (dyr). <b>Antonym:</b> ódýr (billig).<br><b>Exempel 1:</b> En hund är ett <b>djur</b>.<br><b>Exempel 2:</b> Bilen är <b>dyr</b>.",
+            "th": "<b>คำอธิบาย:</b><br>1. (คำนาม) สัตว์<br>2. (คำคุณศัพท์) มีราคาสูง (แพง) <b>คำตรงข้าม:</b> ódýr (ถูก)<br><b>ตัวอย่าง 1:</b> สุนัขเป็น<b>สัตว์</b><br><b>ตัวอย่าง 2:</b> รถยนต์คันนี้<b>แพง</b>",
+            "de": "<b>Erklärung:</b><br>1. (Substantiv) Ein Lebewesen (Tier).<br>2. (Adjektiv) Kostet viel Geld (teuer). <b>Antonym:</b> ódýr (billig).<br><b>Beispiel 1:</b> Ein Hund ist ein <b>Tier</b>.<br><b>Beispiel 2:</b> Das Auto ist <b>teuer</b>.",
+            "uk": "<b>Пояснення:</b><br>1. (Іменник) Жива істота (тварина).<br>2. (Прикметник) Коштує багато грошей (дорогий). <b>Антонім:</b> ódýr (дешевий).<br><b>Приклад 1:</b> Собака — це <b>тварина</b>.<br><b>Приклад 2:</b> Машина <b>дорога</b>.",
+            "vi": "<b>Giải thích:</b><br>1. (Danh từ) Động vật.<br>2. (Tính từ) Tốn nhiều tiền (đắt). <b>Từ trái nghĩa:</b> ódýr (rẻ).<br><b>Ví dụ 1:</b> Chó là một loài <b>động vật</b>.<br><b>Ví dụ 2:</b> Chiếc xe này <b>đắt</b>."
+        }
+    },
+    { 
+        text: "gefa", 
+        is_exp: "<b>Útskýring:</b><br>1. (Sagnorð) Að rétta einhverjum eitthvað eða færa gjöf.<br>2. (Sagnorð) Að gefa dýrum eða fólki að borða, eða gefa spil.<br><br><b>Dæmi 1:</b> Ég ætla að <b>gefa</b> þér bók.<br><b>Dæmi 2:</b> Þau <b>gefa</b> fuglunum brauð.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b><br>1. (فعل) يعطي أو يهدي.<br>2. (فعل) يُطعِم الحيوانات أو يوزع ورق اللعب.<br><b>مثال 1:</b> سـ<b>أعطيك</b> كتاباً.<br><b>مثال 2:</b> هم <b>يطعمون</b> الطيور الخبز.</div>",
+            "be": "<b>Uitleg:</b><br>1. (Werkwoord) Iets schenken (geven).<br>2. (Werkwoord) Dieren voeren of kaarten delen.<br><b>Voorbeeld 1:</b> Ik ga je een boek <b>geven</b>.<br><b>Voorbeeld 2:</b> Ze <b>geven</b> de vogels brood.",
+            "da": "<b>Forklaring:</b><br>1. (Udsagnsord) At forære noget (give).<br>2. (Udsagnsord) At fodre dyr eller give kort.<br><b>Eksempel 1:</b> Jeg vil <b>give</b> dig en bog.<br><b>Eksempel 2:</b> De <b>giver</b> fuglene brød.",
+            "en": "<b>Explanation:</b><br>1. (Verb) To hand over or present a gift (to give).<br>2. (Verb) To feed animals or deal playing cards.<br><b>Example 1:</b> I am going to <b>give</b> you a book.<br><b>Example 2:</b> They <b>feed (give)</b> the birds bread.",
+            "tl": "<b>Paliwanag:</b><br>1. (Pandiwa) Magbigay ng regalo o bagay.<br>2. (Pandiwa) Magpakain ng hayop.<br><b>Halimbawa 1:</b> <b>Bibigyan</b> kita ng libro.<br><b>Halimbawa 2:</b> <b>Binibigyan</b> nila ng tinapay ang mga ibon.",
+            "fi": "<b>Selitys:</b><br>1. (Verbi) Ojentaa tai lahjoittaa (antaa).<br>2. (Verbi) Ruokkia eläimiä tai jakaa kortit.<br><b>Esimerkki 1:</b> Aion <b>antaa</b> sinulle kirjan.<br><b>Esimerkki 2:</b> He <b>antavat</b> linnuille leipää.",
+            "fr": "<b>Explication:</b><br>1. (Verbe) Offrir quelque chose (donner).<br>2. (Verbe) Nourrir des animaux ou distribuer des cartes.<br><b>Exemple 1:</b> Je vais te <b>donner</b> un livre.<br><b>Exemple 2:</b> Ils <b>donnent</b> du pain aux oiseaux.",
+            "fo": "<b>Frágreiðing:</b><br>1. (Sagnorð) At lata onkrum eina gávu (at geva).<br>2. (Sagnorð) At fóðra djórum ella geva kort.<br><b>Dømi 1:</b> Eg ætli at <b>geva</b> tær eina bók.<br><b>Dømi 2:</b> Tey <b>geva</b> fuglunum breyð.",
+            "kl": "<b>Nassoqqaat:</b><br>1. (Oqaaseq) Tunivaa.<br>2. (Oqaaseq) Nerisippaa.<br><b>Assersuut 1:</b> Atuakkamik <b>tuniniarpakkit</b>.<br><b>Assersuut 2:</b> Timmissat iffiamik <b>nerisippaat</b>.",
+            "nl": "<b>Uitleg:</b><br>1. (Werkwoord) Iets schenken (geven).<br>2. (Werkwoord) Dieren voeren of kaarten delen.<br><b>Voorbeeld 1:</b> Ik ga je een boek <b>geven</b>.<br><b>Voorbeeld 2:</b> Ze <b>geven</b> de vogels brood.",
+            "it": "<b>Spiegazione:</b><br>1. (Verbo) Consegnare o regalare (dare).<br>2. (Verbo) Dare da mangiare agli animali o dare le carte.<br><b>Esempio 1:</b> Ti <b>darò</b> un libro.<br><b>Esempio 2:</b> Loro <b>danno</b> il pane agli uccelli.",
+            "ja": "<b>説明:</b><br>1. (動詞) 物を渡す、贈る（あげる・与える）。<br>2. (動詞) 動物に餌をやる、トランプを配る。<br><b>例文 1:</b> あなたに本を<b>あげる</b>つもりです。<br><b>例文 2:</b> 彼らは鳥にパンを<b>やります</b>。",
+            "zh": "<b>解释:</b><br>1. (动词) 给、赠送。<br>2. (动词) 喂养动物，或发牌。<br><b>例句 1:</b> 我要<b>给</b>你一本书。<br><b>例句 2:</b> 他们<b>给（喂）</b>鸟儿面包。",
+            "ku": "<b>Ravekirin:</b><br>1. (Lêker) Dan / diyarî kirin.<br>2. (Lêker) Xwarin dan heywanan.<br><b>Mînak 1:</b> Ez ê pirtûkekê <b>bidim</b> te.<br><b>Mînak 2:</b> Ew nên <b>didin</b> çûkan.",
+            "lv": "<b>Paskaidrojums:</b><br>1. (Darbības vārds) Pasniegt vai dāvināt (dot).<br>2. (Darbības vārds) Barot dzīvniekus vai dalīt kārtis.<br><b>Piemērs 1:</b> Es tev <b>iedošu</b> grāmatu.<br><b>Piemērs 2:</b> Viņi <b>dod</b> putniem maizi.",
+            "lt": "<b>Paaiškinimas:</b><br>1. (Veiksmažodis) Įteikti arba dovanoti (duoti).<br>2. (Veiksmažodis) Šerti gyvūnus arba dalyti kortas.<br><b>Pavyzdys 1:</b> Aš ketinu tau <b>duoti</b> knygą.<br><b>Pavyzdys 2:</b> Jie <b>duoda</b> paukščiams duonos.",
+            "no": "<b>Forklaring:</b><br>1. (Verb) Å overrekke en gave (gi).<br>2. (Verb) Å mate dyr eller dele ut kort.<br><b>Eksempel 1:</b> Jeg skal <b>gi</b> deg en bok.<br><b>Eksempel 2:</b> De <b>gir</b> fuglene brød.",
+            "fa": "<div dir='rtl'><b>توضیح:</b><br>1. (فعل) هدیه دادن یا بخشیدن (دادن).<br>2. (فعل) غذا دادن به حیوانات.<br><b>مثال 1:</b> می‌خواهم یک کتاب به تو <b>بدهم</b>.<br><b>مثال 2:</b> آن‌ها به پرندگان نان <b>می‌دهند</b>.</div>",
+            "pt": "<b>Explicação:</b><br>1. (Verbo) Entregar ou presentear (dar).<br>2. (Verbo) Alimentar animais ou dar as cartas.<br><b>Exemplo 1:</b> Vou te <b>dar</b> um livro.<br><b>Exemplo 2:</b> Eles <b>dão</b> pão aos pássaros.",
+            "pl": "<b>Wyjaśnienie:</b><br>1. (Czasownik) Wręczać coś (dawać).<br>2. (Czasownik) Karmić zwierzęta lub rozdawać karty.<br><b>Przykład 1:</b> Zamierzam <b>dać</b> ci książkę.<br><b>Przykład 2:</b> Oni <b>dają</b> ptakom chleb.",
+            "ro": "<b>Explicație:</b><br>1. (Verb) A oferi ceva (a da).<br>2. (Verb) A hrăni animalele sau a împărți cărți.<br><b>Exemplu 1:</b> Îți voi <b>da</b> o carte.<br><b>Exemplu 2:</b> Ei <b>dau</b> pâine păsărilor.",
+            "ru": "<b>Объяснение:</b><br>1. (Глагол) Вручать или дарить (давать).<br>2. (Глагол) Кормить животных или раздавать карты.<br><b>Пример 1:</b> Я собираюсь <b>дать</b> тебе книгу.<br><b>Пример 2:</b> Они <b>дают</b> птицам хлеб.",
+            "es": "<b>Explicación:</b><br>1. (Verbo) Entregar o regalar (dar).<br>2. (Verbo) Alimentar animales o repartir cartas.<br><b>Ejemplo 1:</b> Te voy a <b>dar</b> un libro.<br><b>Ejemplo 2:</b> Ellos <b>dan</b> pan a los pájaros.",
+            "sv": "<b>Förklaring:</b><br>1. (Verb) Att överlämna en gåva (ge).<br>2. (Verb) Att mata djur eller ge kort.<br><b>Exempel 1:</b> Jag ska <b>ge</b> dig en bok.<br><b>Exempel 2:</b> De <b>ger</b> fåglarna bröd.",
+            "th": "<b>คำอธิบาย:</b><br>1. (คำกริยา) มอบสิ่งของ (ให้)<br>2. (คำกริยา) ให้อาหารสัตว์ หรือ แจกไพ่<br><b>ตัวอย่าง 1:</b> ฉันจะ<b>ให้</b>หนังสือแก่คุณ<br><b>ตัวอย่าง 2:</b> พวกเขา<b>ให้</b>ขนมปังแก่นก",
+            "de": "<b>Erklärung:</b><br>1. (Verb) Etwas überreichen oder schenken (geben).<br>2. (Verb) Tiere füttern oder Karten geben.<br><b>Beispiel 1:</b> Ich werde dir ein Buch <b>geben</b>.<br><b>Beispiel 2:</b> Sie <b>geben</b> den Vögeln Brot.",
+            "uk": "<b>Пояснення:</b><br>1. (Дієслово) Вручати або дарувати (давати).<br>2. (Дієслово) Годувати тварин або роздавати карти.<br><b>Приклад 1:</b> Я збираюся <b>дати</b> тобі книгу.<br><b>Приклад 2:</b> Вони <b>дають</b> птахам хліб.",
+            "vi": "<b>Giải thích:</b><br>1. (Động từ) Trao tặng một thứ gì đó (cho / tặng).<br>2. (Động từ) Cho động vật ăn hoặc chia bài.<br><b>Ví dụ 1:</b> Tôi định <b>tặng</b> bạn một cuốn sách.<br><b>Ví dụ 2:</b> Họ <b>cho</b> chim ăn bánh mì."
+        }
+    },
+    { 
+        text: "staðar", 
+        is_exp: "<b>Útskýring:</b> (Nafnorð, eignarfall af 'staður')<br>1. Ákveðið svæði eða punktur (t.d. til staðar = viðstaddur).<br>2. Í föstum samböndum um að stoppa (nema staðar = stoppa).<br><br><b>Dæmi 1:</b> Allir eru til <b>staðar</b>.<br><b>Dæmi 2:</b> Bíllinn nam <b>staðar</b>.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b> (اسم، مضاف إليه من 'مكان')<br>1. موجود / حاضر (til staðar).<br>2. يتوقف عن الحركة (nema staðar).<br><b>مثال 1:</b> الجميع <b>حاضرون (في المكان)</b>.<br><b>مثال 2:</b> <b>توقفت</b> السيارة.</div>",
+            "be": "<b>Uitleg:</b> (Zelfstandig naamwoord, genitief van 'plaats')<br>1. Aanwezig zijn (til staðar).<br>2. Tot stilstand komen / stoppen (nema staðar).<br><b>Voorbeeld 1:</b> Iedereen is <b>aanwezig (ter plaatse)</b>.<br><b>Voorbeeld 2:</b> De auto kwam tot <b>stilstand</b>.",
+            "da": "<b>Forklaring:</b> (Navneord, ejefald af 'sted')<br>1. Til stede (til staðar).<br>2. At standse / stoppe op (nema staðar).<br><b>Eksempel 1:</b> Alle er til <b>stede</b>.<br><b>Eksempel 2:</b> Bilen <b>standsede</b>.",
+            "en": "<b>Explanation:</b> (Noun, genitive of 'place')<br>1. Present / on site (til staðar).<br>2. Used in the phrase 'nema staðar' = to stop.<br><b>Example 1:</b> Everyone is <b>present</b>.<br><b>Example 2:</b> The car <b>stopped</b>.",
+            "tl": "<b>Paliwanag:</b> (Pangngalan, mula sa 'lugar')<br>1. Naroroon (til staðar).<br>2. Huminto (nema staðar).<br><b>Halimbawa 1:</b> Ang lahat ay <b>naroroon</b>.<br><b>Halimbawa 2:</b> <b>Huminto</b> ang kotse.",
+            "fi": "<b>Selitys:</b> (Substantiivi, sanan 'paikka' genetiivi)<br>1. Paikalla / läsnä (til staðar).<br>2. Pysähtyä (nema staðar).<br><b>Esimerkki 1:</b> Kaikki ovat <b>paikalla</b>.<br><b>Esimerkki 2:</b> Auto <b>pysähtyi</b>.",
+            "fr": "<b>Explication:</b> (Nom, génitif de 'lieu')<br>1. Présent / sur place (til staðar).<br>2. S'arrêter (nema staðar).<br><b>Exemple 1:</b> Tout le monde est <b>présent (sur place)</b>.<br><b>Exemple 2:</b> La voiture s'est <b>arrêtée</b>.",
+            "fo": "<b>Frágreiðing:</b> (Navnorð, hvørsfall av 'staður')<br>1. Til staðar (hjástaddur).<br>2. At steðga (nema staðar).<br><b>Dømi 1:</b> Øll eru til <b>staðar</b>.<br><b>Dømi 2:</b> Bilurin steðgaði (nam <b>staðar</b>).",
+            "kl": "<b>Nassoqqaat:</b> (Taggit, sumiiffik)<br>1. Najugaqarpoq / Najorsimavoq (til staðar).<br>2. Unippoq (nema staðar).<br><b>Assersuut 1:</b> Tamarmik <b>najorsimapput</b>.<br><b>Assersuut 2:</b> Biili <b>unippoq</b>.",
+            "nl": "<b>Uitleg:</b> (Zelfstandig naamwoord, genitief van 'plaats')<br>1. Aanwezig zijn (til staðar).<br>2. Stoppen (nema staðar).<br><b>Voorbeeld 1:</b> Iedereen is <b>aanwezig</b>.<br><b>Voorbeeld 2:</b> De auto <b>stopte</b>.",
+            "it": "<b>Spiegazione:</b> (Sostantivo, genitivo di 'luogo')<br>1. Presente / sul posto (til staðar).<br>2. Fermarsi (nema staðar).<br><b>Esempio 1:</b> Tutti sono <b>presenti</b>.<br><b>Esempio 2:</b> L'auto si è <b>fermata</b>.",
+            "ja": "<b>説明:</b> (名詞「場所」の属格)<br>1. その場にいる、出席している（til staðar）。<br>2. 立ち止まる、停止する（nema staðar）。<br><b>例文 1:</b> 全員がその<b>場にいます</b>。<br><b>例文 2:</b> 車が<b>止まりました</b>。",
+            "zh": "<b>解释:</b> (名词“地方”的所有格)<br>1. 在场（til staðar）。<br>2. 停下（nema staðar）。<br><b>例句 1:</b> 大家都<b>在场</b>。<br><b>例句 2:</b> 车<b>停了下来</b>。",
+            "ku": "<b>Ravekirin:</b> (Navdêr, ji 'cih')<br>1. Amade / li wir (til staðar).<br>2. Sekinîn (nema staðar).<br><b>Mînak 1:</b> Her kes <b>amade</b> ye.<br><b>Mînak 2:</b> Erebe <b>sekinî</b>.",
+            "lv": "<b>Paskaidrojums:</b> (Lietvārds, ģenitīvs no 'vieta')<br>1. Klātesošs / uz vietas (til staðar).<br>2. Apstāties (nema staðar).<br><b>Piemērs 1:</b> Visi ir <b>uz vietas</b>.<br><b>Piemērs 2:</b> Mašīna <b>apstājās</b>.",
+            "lt": "<b>Paaiškinimas:</b> (Daiktavardis, kilmininkas nuo 'vieta')<br>1. Esantis vietoje (til staðar).<br>2. Sustoti (nema staðar).<br><b>Pavyzdys 1:</b> Visi yra <b>vietoje</b>.<br><b>Pavyzdys 2:</b> Automobilis <b>sustojo</b>.",
+            "no": "<b>Forklaring:</b> (Substantiv, genitiv av 'sted')<br>1. Til stede (til staðar).<br>2. Å stoppe / stanse (nema staðar).<br><b>Eksempel 1:</b> Alle er til <b>stede</b>.<br><b>Eksempel 2:</b> Bilen <b>stanset</b>.",
+            "fa": "<div dir='rtl'><b>توضیح:</b> (اسم، از کلمه 'مکان')<br>1. حاضر بودن در محل (til staðar).<br>2. ایستادن / توقف کردن (nema staðar).<br><b>مثال 1:</b> همه <b>حاضر</b> هستند.<br><b>مثال 2:</b> ماشین <b>ایستاد</b>.</div>",
+            "pt": "<b>Explicação:</b> (Substantivo, genitivo de 'lugar')<br>1. Presente / no local (til staðar).<br>2. Parar (nema staðar).<br><b>Exemplo 1:</b> Todos estão <b>presentes</b>.<br><b>Exemplo 2:</b> O carro <b>parou</b>.",
+            "pl": "<b>Wyjaśnienie:</b> (Rzeczownik, dopełniacz od 'miejsce')<br>1. Obecny / na miejscu (til staðar).<br>2. Zatrzymać się (nema staðar).<br><b>Przykład 1:</b> Wszyscy są <b>na miejscu</b>.<br><b>Przykład 2:</b> Samochód się <b>zatrzymał</b>.",
+            "ro": "<b>Explicație:</b> (Substantiv, genitivul de la 'loc')<br>1. Prezent / la fața locului (til staðar).<br>2. A se opri (nema staðar).<br><b>Exemplu 1:</b> Toți sunt <b>prezenți</b>.<br><b>Exemplu 2:</b> Mașina s-a <b>oprit</b>.",
+            "ru": "<b>Объяснение:</b> (Существительное, род. п. от 'место')<br>1. На месте / присутствует (til staðar).<br>2. Остановиться (nema staðar).<br><b>Пример 1:</b> Все <b>на месте</b>.<br><b>Пример 2:</b> Машина <b>остановилась</b>.",
+            "es": "<b>Explicación:</b> (Sustantivo, genitivo de 'lugar')<br>1. Presente / en el lugar (til staðar).<br>2. Detenerse / parar (nema staðar).<br><b>Ejemplo 1:</b> Todos están <b>presentes</b>.<br><b>Ejemplo 2:</b> El coche se <b>detuvo</b>.",
+            "sv": "<b>Förklaring:</b> (Substantiv, genitiv av 'plats / ställe')<br>1. Närvarande / på plats (til staðar).<br>2. Att stanna (nema staðar).<br><b>Exempel 1:</b> Alla är på <b>plats</b>.<br><b>Exempel 2:</b> Bilen <b>stannade</b>.",
+            "th": "<b>คำอธิบาย:</b> (คำนาม มาจากคำว่า 'สถานที่')<br>1. อยู่ ณ ที่นั้น (til staðar)<br>2. หยุดอยู่กับที่ (nema staðar)<br><b>ตัวอย่าง 1:</b> ทุกคน<b>อยู่ที่นี่</b>พร้อมหน้า<br><b>ตัวอย่าง 2:</b> รถยนต์<b>หยุด</b>แล้ว",
+            "de": "<b>Erklärung:</b> (Substantiv, Genitiv von 'Ort / Stelle')<br>1. Anwesend / vor Ort (til staðar).<br>2. Anhalten / stehen bleiben (nema staðar).<br><b>Beispiel 1:</b> Alle sind <b>vor Ort (anwesend)</b>.<br><b>Beispiel 2:</b> Das Auto blieb <b>stehen</b>.",
+            "uk": "<b>Пояснення:</b> (Іменник, род. в. від 'місце')<br>1. На місці / присутній (til staðar).<br>2. Зупинитися (nema staðar).<br><b>Приклад 1:</b> Усі <b>на місці</b>.<br><b>Приклад 2:</b> Машина <b>зупинилася</b>.",
+            "vi": "<b>Giải thích:</b> (Danh từ, sở hữu cách của 'nơi chốn')<br>1. Có mặt tại chỗ (til staðar).<br>2. Dừng lại (nema staðar).<br><b>Ví dụ 1:</b> Mọi người đều <b>có mặt</b>.<br><b>Ví dụ 2:</b> Chiếc xe đã <b>dừng lại</b>."
+        }
+    },
+    { 
+        text: "væru", 
+        is_exp: "<b>Útskýring:</b> (Sagnorð) Viðtengingarháttur þátíðar í fleirtölu af 'að vera' (þeir/þær/þau væru). Notað um óskir, ímyndun eða í óbeinni ræðu.<br><br><b>Dæmi:</b> Ég vildi að þau <b>væru</b> hér.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b> (فعل) صيغة التمني أو الاحتمال للجمع من فعل 'يكون' (كانوا).<br><b>مثال:</b> أتمنى لو أنهم <b>كانوا</b> هنا.</div>",
+            "be": "<b>Uitleg:</b> (Werkwoord) Aanvoegende wijs meervoud van 'zijn' (zouden zijn / waren).<br><b>Voorbeeld:</b> Ik wou dat ze hier <b>waren</b>.",
+            "da": "<b>Forklaring:</b> (Udsagnsord) Ønskeform / datid af 'være' i flertal (var).<br><b>Eksempel:</b> Jeg ville ønske, at de <b>var</b> her.",
+            "en": "<b>Explanation:</b> (Verb) Past subjunctive plural of 'to be' (were / would be). Used for wishes or hypotheticals.<br><b>Example:</b> I wish they <b>were</b> here.",
+            "tl": "<b>Paliwanag:</b> (Pandiwa) Ginagamit sa hiling para sa 'narito / maging' (sana ay).<br><b>Halimbawa:</b> Sana ay <b>narito</b> sila.",
+            "fi": "<b>Selitys:</b> (Verbi) Konditionaali monikossa verbistä 'olla' (olisivat).<br><b>Esimerkki:</b> Toivon, että he <b>olisivat</b> täällä.",
+            "fr": "<b>Explication:</b> (Verbe) Subjonctif / conditionnel pluriel de 'être' (étaient / seraient).<br><b>Exemple:</b> J'aimerais qu'ils <b>soient</b> ici.",
+            "fo": "<b>Frágreiðing:</b> (Sagnorð) Ynskiháttur í tátíð fleirtali av 'at vera' (vóru).<br><b>Dømi:</b> Eg vildi ønskt, at tey <b>vóru</b> her.",
+            "kl": "<b>Nassoqqaat:</b> (Oqaaseq) Najorsimasuugunik.<br><b>Assersuut:</b> Maaniis<b>suugunik</b> qujanassagaluarpoq.",
+            "nl": "<b>Uitleg:</b> (Werkwoord) Aanvoegende wijs meervoud van 'zijn' (waren / zouden zijn).<br><b>Voorbeeld:</b> Ik wou dat ze hier <b>waren</b>.",
+            "it": "<b>Spiegazione:</b> (Verbo) Congiuntivo imperfetto plurale di 'essere' (fossero).<br><b>Esempio:</b> Vorrei che loro <b>fossero</b> qui.",
+            "ja": "<b>説明:</b> (動詞) 「～である」の仮定法（もし彼らが～だったら）。<br><b>例文:</b> 彼らがここに<b>いてくれたら</b>いいのに。",
+            "zh": "<b>解释:</b> (动词) “是、在”的虚拟语气复数形式（用于愿望或假设）。<br><b>例句:</b> 我希望他们<b>在</b>这里。",
+            "ku": "<b>Ravekirin:</b> (Lêker) Raweya xwestekê ya 'bûn' (bûna).<br><b>Mînak:</b> Xwezî ew li vir <b>bûna</b>.",
+            "lv": "<b>Paskaidrojums:</b> (Darbības vārds) Vēlējuma izteiksme no 'būt' (būtu).<br><b>Piemērs:</b> Kaut viņi <b>būtu</b> šeit.",
+            "lt": "<b>Paaiškinimas:</b> (Veiksmažodis) Tariamoji nuosaka nuo 'būti' (būtų).<br><b>Pavyzdys:</b> Norėčiau, kad jie <b>būtų</b> čia.",
+            "no": "<b>Forklaring:</b> (Verb) Konjunktiv / ønskeform av 'være' (var / skulle være).<br><b>Eksempel:</b> Jeg skulle ønske de <b>var</b> her.",
+            "fa": "<div dir='rtl'><b>توضیح:</b> (فعل) وجه التزامی گذشته از 'بودن' برای آرزو یا فرض (بودند).<br><b>مثال:</b> ای کاش آن‌ها اینجا <b>بودند</b>.</div>",
+            "pt": "<b>Explicação:</b> (Verbo) Subjuntivo plural de 'ser / estar' (estivessem).<br><b>Exemplo:</b> Eu queria que eles <b>estivessem</b> aqui.",
+            "pl": "<b>Wyjaśnienie:</b> (Czasownik) Tryb przypuszczający l.mn. od 'być' (byliby / byli).<br><b>Przykład:</b> Chciałbym, żeby tu <b>byli</b>.",
+            "ro": "<b>Explicație:</b> (Verb) Condiționalul plural de la 'a fi' (ar fi).<br><b>Exemplu:</b> Mi-aș dori ca ei să <b>fie (ar fi)</b> aici.",
+            "ru": "<b>Объяснение:</b> (Глагол) Сослагательное наклонение мн. ч. от 'быть' (были бы).<br><b>Пример:</b> Я хотел бы, чтобы они <b>были</b> здесь.",
+            "es": "<b>Explicación:</b> (Verbo) Subjuntivo plural de 'ser / estar' (estuvieran).<br><b>Ejemplo:</b> Ojalá ellos <b>estuvieran</b> aquí.",
+            "sv": "<b>Förklaring:</b> (Verb) Konjunktiv plural av 'vara' (vore / var).<br><b>Exempel:</b> Jag önskar att de <b>vore</b> här.",
+            "th": "<b>คำอธิบาย:</b> (คำกริยา) รูปสมมติหรือความปรารถนาของคำว่า 'อยู่ / เป็น'<br><b>ตัวอย่าง:</b> ฉันหวังว่าพวกเขาจะ<b>อยู่</b>ที่นี่",
+            "de": "<b>Erklärung:</b> (Verb) Konjunktiv II Plural von 'sein' (wären).<br><b>Beispiel:</b> Ich wünschte, sie <b>wären</b> hier.",
+            "uk": "<b>Пояснення:</b> (Дієслово) Умовний спосіб множини від 'бути' (були б).<br><b>Приклад:</b> Я хотів би, щоб вони <b>були</b> тут.",
+            "vi": "<b>Giải thích:</b> (Động từ) Dạng giả định của 'ở / là' dùng cho điều ước.<br><b>Ví dụ:</b> Tôi ước gì họ <b>đang ở</b> đây."
+        }
+    },
+    { 
+        text: "mikill", 
+        is_exp: "<b>Útskýring:</b><br>1. (Lýsingarorð, karlkyn) Í stóru magni eða sterkur.<br>2. (Lýsingarorð) Merkilegur eða frábær (um manneskju).<br><br><b>Dæmi 1:</b> Það er <b>mikill</b> snjór úti.<br><b>Dæmi 2:</b> Hún er <b>mikill</b> listamaður.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b><br>1. (صفة للمذكر) بكمية كبيرة (كثير).<br>2. (صفة) عظيم أو بارع.<br><b>مثال 1:</b> يوجد ثلج <b>كثير</b> في الخارج.<br><b>مثال 2:</b> هي فنانة <b>عظيمة</b>.</div>",
+            "be": "<b>Uitleg:</b><br>1. (Bijvoeglijk naamwoord) In grote hoeveelheid (veel).<br>2. (Bijvoeglijk naamwoord) Groot / geweldig (over een persoon).<br><b>Voorbeeld 1:</b> Er ligt <b>veel</b> sneeuw buiten.<br><b>Voorbeeld 2:</b> Ze is een <b>groot</b> kunstenaar.",
+            "da": "<b>Forklaring:</b><br>1. (Tillægsord) I stor mængde (meget).<br>2. (Tillægsord) Stor / betydelig.<br><b>Eksempel 1:</b> Der er <b>meget</b> sne udenfor.<br><b>Eksempel 2:</b> Hun er en <b>stor</b> kunstner.",
+            "en": "<b>Explanation:</b><br>1. (Adjective, masculine) Large in amount or intensity (much / heavy).<br>2. (Adjective) Great or remarkable (about a person).<br><b>Example 1:</b> There is <b>a lot of (heavy)</b> snow outside.<br><b>Example 2:</b> She is a <b>great</b> artist.",
+            "tl": "<b>Paliwanag:</b><br>1. (Pang-uri) Marami o malakas.<br>2. (Pang-uri) Mahusay o dakila.<br><b>Halimbawa 1:</b> <b>Maraming</b> niyebe sa labas.<br><b>Halimbawa 2:</b> Isa siyang <b>mahusay</b> na pintor.",
+            "fi": "<b>Selitys:</b><br>1. (Adjektiivi) Suuri määrä (paljon / kova).<br>2. (Adjektiivi) Suuri / merkittävä.<br><b>Esimerkki 1:</b> Ulkona on <b>paljon</b> lunta.<br><b>Esimerkki 2:</b> Hän on <b>suuri</b> taiteilija.",
+            "fr": "<b>Explication:</b><br>1. (Adjectif) En grande quantité (beaucoup de / fort).<br>2. (Adjectif) Grand / remarquable.<br><b>Exemple 1:</b> Il y a <b>beaucoup de</b> neige dehors.<br><b>Exemple 2:</b> C'est une <b>grande</b> artiste.",
+            "fo": "<b>Frágreiðing:</b><br>1. (Lýsingarorð, kallkyn) Nógvur.<br>2. (Lýsingarorð) Stórur / týðandi.<br><b>Dømi 1:</b> Tað er <b>nógvur</b> kavi úti.<br><b>Dømi 2:</b> Hon er ein <b>stórur</b> listamaður.",
+            "kl": "<b>Nassoqqaat:</b><br>1. (Pissusilerut) Annertuvoq / Aputeqarluarpoq.<br>2. (Pissusilerut) Pikkorissoq.<br><b>Assersuut 1:</b> Silami aput <b>annertuvoq</b>.<br><b>Assersuut 2:</b> Eqqumiitsuliortuuvoq <b>pikkorissoq</b>.",
+            "nl": "<b>Uitleg:</b><br>1. (Bijvoeglijk naamwoord) In grote hoeveelheid (veel).<br>2. (Bijvoeglijk naamwoord) Groot / belangrijk.<br><b>Voorbeeld 1:</b> Er ligt <b>veel</b> sneeuw buiten.<br><b>Voorbeeld 2:</b> Ze is een <b>groot</b> kunstenaar.",
+            "it": "<b>Spiegazione:</b><br>1. (Aggettivo) In grande quantità (molto).<br>2. (Aggettivo) Grande / importante.<br><b>Esempio 1:</b> C'è <b>molta</b> neve fuori.<br><b>Esempio 2:</b> Lei è una <b>grande</b> artista.",
+            "ja": "<b>説明:</b><br>1. (形容詞・男性形) 量が多い（たくさんの）。<br>2. (形容詞) 偉大な、優れた。<br><b>例文 1:</b> 外には<b>たくさんの</b>雪があります。<br><b>例文 2:</b> 彼女は<b>偉大な</b>芸術家です。",
+            "zh": "<b>解释:</b><br>1. (形容词，阳性) 数量多、程度大（很多）。<br>2. (形容词) 伟大的、了不起的。<br><b>例句 1:</b> 外面有<b>很多</b>雪。<br><b>例句 2:</b> 她是一位<b>伟大的</b>艺术家。",
+            "ku": "<b>Ravekirin:</b><br>1. (Rengdêr) Pir / zêde.<br>2. (Rengdêr) Mezin / hêja.<br><b>Mînak 1:</b> Li derve berfeke <b>zêde</b> heye.<br><b>Mînak 2:</b> Ew hunermendeke <b>mezin</b> e.",
+            "lv": "<b>Paskaidrojums:</b><br>1. (Īpašības vārds) Lielā daudzumā (daudz / liels).<br>2. (Īpašības vārds) Izcils / ievērojams.<br><b>Piemērs 1:</b> Ārā ir <b>daudz</b> sniega.<br><b>Piemērs 2:</b> Viņa ir <b>izcila</b> māksliniece.",
+            "lt": "<b>Paaiškinimas:</b><br>1. (Būdvardis) Didelis kiekis (daug / gausus).<br>2. (Būdvardis) Žymus / didis.<br><b>Pavyzdys 1:</b> Lauke yra <b>daug</b> sniego.<br><b>Pavyzdys 2:</b> Ji yra <b>didi</b> menininkė.",
+            "no": "<b>Forklaring:</b><br>1. (Adjektiv) I stor mengde (mye).<br>2. (Adjektiv) Stor / betydelig.<br><b>Eksempel 1:</b> Det er <b>mye</b> snø ute.<br><b>Eksempel 2:</b> Hun er en <b>stor</b> kunstner.",
+            "fa": "<div dir='rtl'><b>توضیح:</b><br>1. (صفت) به مقدار زیاد (زیاد).<br>2. (صفت) بزرگ و برجسته.<br><b>مثال 1:</b> بیرون برف <b>زیادی</b> است.<br><b>مثال 2:</b> او هنرمند <b>بزرگی</b> است.</div>",
+            "pt": "<b>Explicação:</b><br>1. (Adjetivo) Em grande quantidade (muito).<br>2. (Adjetivo) Grande / notável.<br><b>Exemplo 1:</b> Há <b>muita</b> neve lá fora.<br><b>Exemplo 2:</b> Ela é uma <b>grande</b> artista.",
+            "pl": "<b>Wyjaśnienie:</b><br>1. (Przymiotnik) W dużej ilości (duży / dużo).<br>2. (Przymiotnik) Wielki / wybitny.<br><b>Przykład 1:</b> Na zewnątrz jest <b>dużo</b> śniegu.<br><b>Przykład 2:</b> Ona jest <b>wielką</b> artystką.",
+            "ro": "<b>Explicație:</b><br>1. (Adjectiv) În cantitate mare (mult).<br>2. (Adjectiv) Mare / remarcabil.<br><b>Exemplu 1:</b> Este <b>multă</b> zăpadă afară.<br><b>Exemplu 2:</b> Ea este o <b>mare</b> artistă.",
+            "ru": "<b>Объяснение:</b><br>1. (Прилагательное) В большом количестве (много / сильный).<br>2. (Прилагательное) Великий / большой.<br><b>Пример 1:</b> На улице <b>много</b> снега.<br><b>Пример 2:</b> Она <b>великий</b> художник.",
+            "es": "<b>Explicación:</b><br>1. (Adjetivo) En gran cantidad (mucho).<br>2. (Adjetivo) Gran / importante.<br><b>Ejemplo 1:</b> Hay <b>mucha</b> nieve afuera.<br><b>Ejemplo 2:</b> Ella es una <b>gran</b> artista.",
+            "sv": "<b>Förklaring:</b><br>1. (Adjektiv) I stor mängd (mycket).<br>2. (Adjektiv) Stor / betydande.<br><b>Exempel 1:</b> Det är <b>mycket</b> snö ute.<br><b>Exempel 2:</b> Hon är en <b>stor</b> konstnär.",
+            "th": "<b>คำอธิบาย:</b><br>1. (คำคุณศัพท์) ปริมาณมาก (เยอะ)<br>2. (คำคุณศัพท์) ยิ่งใหญ่<br><b>ตัวอย่าง 1:</b> ข้างนอกมีหิมะ<b>เยอะมาก</b><br><b>ตัวอย่าง 2:</b> เธอเป็นศิลปินที่<b>ยิ่งใหญ่</b>",
+            "de": "<b>Erklärung:</b><br>1. (Adjektiv) In großer Menge (viel).<br>2. (Adjektiv) Groß / bedeutend.<br><b>Beispiel 1:</b> Draußen liegt <b>viel</b> Schnee.<br><b>Beispiel 2:</b> Sie ist eine <b>große</b> Künstlerin.",
+            "uk": "<b>Пояснення:</b><br>1. (Прикметник) У великій кількості (багато).<br>2. (Прикметник) Великий / видатний.<br><b>Приклад 1:</b> На вулиці <b>багато</b> снігу.<br><b>Приклад 2:</b> Вона <b>великий</b> митець.",
+            "vi": "<b>Giải thích:</b><br>1. (Tính từ) Số lượng lớn (nhiều).<br>2. (Tính từ) Vĩ đại / lớn.<br><b>Ví dụ 1:</b> Bên ngoài có <b>nhiều</b> tuyết.<br><b>Ví dụ 2:</b> Cô ấy là một nghệ sĩ <b>lớn</b>."
+        }
+    },
+    { 
+        text: "þurfa", 
+        is_exp: "<b>Útskýring:</b><br>1. (Sagnorð) Að vanta eitthvað nauðsynlegt.<br>2. (Sagnorð, með 'að') Að verða að gera eitthvað (skylda).<br><br><b>Dæmi 1:</b> Plöntur <b>þurfa</b> vatn.<br><b>Dæmi 2:</b> Þau <b>þurfa</b> að fara núna.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b><br>1. (فعل) يحتاج إلى شيء.<br>2. (فعل) يجب أن يفعل شيئاً.<br><b>مثال 1:</b> النباتات <b>تحتاج</b> إلى الماء.<br><b>مثال 2:</b> <b>يجب</b> عليهم الذهاب الآن.</div>",
+            "be": "<b>Uitleg:</b><br>1. (Werkwoord) Iets nodig hebben.<br>2. (Werkwoord) Iets moeten doen.<br><b>Voorbeeld 1:</b> Planten hebben water <b>nodig</b>.<br><b>Voorbeeld 2:</b> Ze <b>moeten</b> nu gaan.",
+            "da": "<b>Forklaring:</b><br>1. (Udsagnsord) At mangle / behøve noget.<br>2. (Udsagnsord) At være nødt til noget.<br><b>Eksempel 1:</b> Planter <b>behøver</b> vand.<br><b>Eksempel 2:</b> De er <b>nødt til</b> at gå nu.",
+            "en": "<b>Explanation:</b><br>1. (Verb) To require something (to need).<br>2. (Verb, with 'að') To have to do something.<br><b>Example 1:</b> Plants <b>need</b> water.<br><b>Example 2:</b> They <b>have to (need to)</b> leave now.",
+            "tl": "<b>Paliwanag:</b><br>1. (Pandiwa) Mangailangan ng isang bagay.<br>2. (Pandiwa) Kailangang gumawa ng isang bagay.<br><b>Halimbawa 1:</b> <b>Kailangan</b> ng mga halaman ng tubig.<br><b>Halimbawa 2:</b> <b>Kailangan</b> na nilang umalis ngayon.",
+            "fi": "<b>Selitys:</b><br>1. (Verbi) Tarvita jotakin.<br>2. (Verbi) Täytyä tehdä jotakin.<br><b>Esimerkki 1:</b> Kasvit <b>tarvitsevat</b> vettä.<br><b>Esimerkki 2:</b> Heidän <b>täytyy</b> lähteä nyt.",
+            "fr": "<b>Explication:</b><br>1. (Verbe) Avoir besoin de quelque chose.<br>2. (Verbe) Devoir faire quelque chose.<br><b>Exemple 1:</b> Les plantes <b>ont besoin d'</b>eau.<br><b>Exemple 2:</b> Ils <b>doivent</b> partir maintenant.",
+            "fo": "<b>Frágreiðing:</b><br>1. (Sagnorð) At tørva okkurt.<br>2. (Sagnorð) At noyðast at gera okkurt.<br><b>Dømi 1:</b> Plantur <b>tørva</b> vatn.<br><b>Dømi 2:</b> Tey <b>noyðast</b> at fara nú.",
+            "kl": "<b>Nassoqqaat:</b><br>1. (Oqaaseq) Pisariaqartippaa.<br>2. (Oqaaseq) Pisariaqarpoq.<br><b>Assersuut 1:</b> Naasut imermik <b>pisariaqartitsipput</b>.<br><b>Assersuut 2:</b> Maanna aallar<b>tariaqarput</b>.",
+            "nl": "<b>Uitleg:</b><br>1. (Werkwoord) Iets nodig hebben.<br>2. (Werkwoord) Iets moeten doen.<br><b>Voorbeeld 1:</b> Planten hebben water <b>nodig</b>.<br><b>Voorbeeld 2:</b> Ze <b>moeten</b> nu gaan.",
+            "it": "<b>Spiegazione:</b><br>1. (Verbo) Avere bisogno di qualcosa.<br>2. (Verbo) Dovere fare qualcosa.<br><b>Esempio 1:</b> Le piante <b>hanno bisogno</b> di acqua.<br><b>Esempio 2:</b> Loro <b>devono</b> andare adesso.",
+            "ja": "<b>説明:</b><br>1. (動詞) 何かを必要とする。<br>2. (動詞) ～しなければならない。<br><b>例文 1:</b> 植物は水を<b>必要とします</b>。<br><b>例文 2:</b> 彼らは今行か<b>なければなりません</b>。",
+            "zh": "<b>解释:</b><br>1. (动词) 需要某物。<br>2. (动词) 必须、得做某事。<br><b>例句 1:</b> 植物<b>需要</b>水。<br><b>例句 2:</b> 他们现在<b>得（必须）</b>走了。",
+            "ku": "<b>Ravekirin:</b><br>1. (Lêker) Hewce bûn.<br>2. (Lêker) Mecbûr bûn.<br><b>Mînak 1:</b> Riwek <b>hewceyî</b> avê ne.<br><b>Mînak 2:</b> Ew <b>mecbûr in</b> niha biçin.",
+            "lv": "<b>Paskaidrojums:</b><br>1. (Darbības vārds) Būt nepieciešamam (vajadzēt).<br>2. (Darbības vārds) Nākties kaut ko darīt.<br><b>Piemērs 1:</b> Augiem <b>vajag</b> ūdeni.<br><b>Piemērs 2:</b> Viņiem tagad <b>jāiet</b>.",
+            "lt": "<b>Paaiškinimas:</b><br>1. (Veiksmažodis) Reikėti ko nors.<br>2. (Veiksmažodis) Privalėti ką nors padaryti.<br><b>Pavyzdys 1:</b> Augalams <b>reikia</b> vandens.<br><b>Pavyzdys 2:</b> Jie <b>turi</b> dabar eiti.",
+            "no": "<b>Forklaring:</b><br>1. (Verb) Å trenge noe.<br>2. (Verb) Å måtte gjøre noe.<br><b>Eksempel 1:</b> Planter <b>trenger</b> vann.<br><b>Eksempel 2:</b> De <b>må</b> dra nå.",
+            "fa": "<div dir='rtl'><b>توضیح:</b><br>1. (فعل) نیاز داشتن به چیزی.<br>2. (فعل) مجبور بودن به انجام کاری (باید).<br><b>مثال 1:</b> گیاهان به آب <b>نیاز دارند</b>.<br><b>مثال 2:</b> آن‌ها <b>باید</b> الان بروند.</div>",
+            "pt": "<b>Explicação:</b><br>1. (Verbo) Precisar de algo.<br>2. (Verbo) Ter que fazer algo.<br><b>Exemplo 1:</b> As plantas <b>precisam</b> de água.<br><b>Exemplo 2:</b> Eles <b>precisam (têm que)</b> ir agora.",
+            "pl": "<b>Wyjaśnienie:</b><br>1. (Czasownik) Potrzebować czegoś.<br>2. (Czasownik) Musieć coś zrobić.<br><b>Przykład 1:</b> Rośliny <b>potrzebują</b> wody.<br><b>Przykład 2:</b> Oni <b>muszą</b> już iść.",
+            "ro": "<b>Explicație:</b><br>1. (Verb) A avea nevoie de ceva.<br>2. (Verb) A trebui să facă ceva.<br><b>Exemplu 1:</b> Plantele <b>au nevoie</b> de apă.<br><b>Exemplu 2:</b> Ei <b>trebuie</b> să plece acum.",
+            "ru": "<b>Объяснение:</b><br>1. (Глагол) Нуждаться в чем-либо.<br>2. (Глагол) Быть должным что-то сделать.<br><b>Пример 1:</b> Растениям <b>нужна</b> вода.<br><b>Пример 2:</b> Им <b>нужно</b> идти сейчас.",
+            "es": "<b>Explicación:</b><br>1. (Verbo) Necesitar algo.<br>2. (Verbo) Tener que hacer algo.<br><b>Ejemplo 1:</b> Las plantas <b>necesitan</b> agua.<br><b>Ejemplo 2:</b> Ellos <b>tienen que</b> irse ahora.",
+            "sv": "<b>Förklaring:</b><br>1. (Verb) Att behöva något.<br>2. (Verb) Att vara tvungen att göra något.<br><b>Exempel 1:</b> Växter <b>behöver</b> vatten.<br><b>Exempel 2:</b> De <b>måste (behöver)</b> gå nu.",
+            "th": "<b>คำอธิบาย:</b><br>1. (คำกริยา) ต้องการสิ่งจำเป็น<br>2. (คำกริยา) จำเป็นต้องทำบางอย่าง<br><b>ตัวอย่าง 1:</b> พืช<b>ต้องการ</b>น้ำ<br><b>ตัวอย่าง 2:</b> พวกเขา<b>ต้อง</b>ไปแล้วตอนนี้",
+            "de": "<b>Erklärung:</b><br>1. (Verb) Etwas benötigen (brauchen).<br>2. (Verb) Etwas tun müssen.<br><b>Beispiel 1:</b> Pflanzen <b>brauchen</b> Wasser.<br><b>Beispiel 2:</b> Sie <b>müssen</b> jetzt gehen.",
+            "uk": "<b>Пояснення:</b><br>1. (Дієслово) Потребувати чогось.<br>2. (Дієслово) Мусити щось зробити.<br><b>Приклад 1:</b> Рослинам <b>потрібна</b> вода.<br><b>Приклад 2:</b> Їм <b>потрібно</b> йти зараз.",
+            "vi": "<b>Giải thích:</b><br>1. (Động từ) Cần một thứ gì đó.<br>2. (Động từ) Phải làm gì đó.<br><b>Ví dụ 1:</b> Cây cối <b>cần</b> nước.<br><b>Ví dụ 2:</b> Họ <b>phải</b> đi ngay bây giờ."
+        }
+    },
+    { 
+        text: "illa", 
+        is_exp: "<b>Útskýring:</b> (Atviksorð) <b>Andheiti:</b> vel.<br>1. Á slæman eða ófullnægjandi hátt (t.d. sofa illa).<br>2. Vond líðan, vanlíðan (líða illa).<br><br><b>Dæmi 1:</b> Hann svaf <b>illa</b> í nótt.<br><b>Dæmi 2:</b> Henni líður <b>illa</b>.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b> (ظرف) <b>مضاد:</b> vel (جيداً).<br>1. بشكل سيئ.<br>2. يشعر بالمرض أو الضيق (líða illa).<br><b>مثال 1:</b> نام <b>بشكل سيئ</b> الليلة الماضية.<br><b>مثال 2:</b> هي تشعر <b>بسوء (بالمرض)</b>.</div>",
+            "be": "<b>Uitleg:</b> (Bijwoord) <b>Antoniem:</b> vel (goed).<br>1. Op een slechte manier (slecht).<br>2. Zich niet lekker of verdrietig voelen (líða illa).<br><b>Voorbeeld 1:</b> Hij sliep vannacht <b>slecht</b>.<br><b>Voorbeeld 2:</b> Ze voelt zich <b>slecht</b>.",
+            "da": "<b>Forklaring:</b> (Biord) <b>Antonym:</b> vel (godt).<br>1. På en dårlig måde (dårligt).<br>2. Utilpas eller ked af det (líða illa).<br><b>Eksempel 1:</b> Han sov <b>dårligt</b> i nat.<br><b>Eksempel 2:</b> Hun har det <b>dårligt</b>.",
+            "en": "<b>Explanation:</b> (Adverb) <b>Antonym:</b> vel (well).<br>1. In a bad or poor way (badly).<br>2. Feeling sick or upset (líða illa).<br><b>Example 1:</b> He slept <b>badly</b> last night.<br><b>Example 2:</b> She feels <b>unwell (bad)</b>.",
+            "tl": "<b>Paliwanag:</b> (Pang-abay) <b>Kasalungat:</b> vel (mabuti).<br>1. Sa masamang paraan (hindi maayos).<br>2. Masama ang pakiramdam (líða illa).<br><b>Halimbawa 1:</b> <b>Hindi maayos</b> ang tulog niya kagabi.<br><b>Halimbawa 2:</b> <b>Masama</b> ang pakiramdam niya.",
+            "fi": "<b>Selitys:</b> (Adverbi) <b>Vastakohta:</b> vel (hyvin).<br>1. Huonolla tavalla (huonosti).<br>2. Voida pahoin / huonosti (líða illa).<br><b>Esimerkki 1:</b> Hän nukkui <b>huonosti</b> viime yönä.<br><b>Esimerkki 2:</b> Hän voi <b>huonosti</b>.",
+            "fr": "<b>Explication:</b> (Adverbe) <b>Antonyme:</b> vel (bien).<br>1. D'une mauvaise manière (mal).<br>2. Se sentir malade ou triste (líða illa).<br><b>Exemple 1:</b> Il a <b>mal</b> dormi cette nuit.<br><b>Exemple 2:</b> Elle se sent <b>mal</b>.",
+            "fo": "<b>Frágreiðing:</b> (Hjáorð) <b>Andheiti:</b> væl.<br>1. Á ringum hátti (illa).<br>2. Ótilpass / sjúk(ur) (hava tað illa).<br><b>Dømi 1:</b> Hann svav <b>illa</b> í nátt.<br><b>Dømi 2:</b> Hon hevur tað <b>illa</b>.",
+            "kl": "<b>Nassoqqaat:</b> (Oqaaseeraq)<br>1. Ajortumik / Sininngilaq.<br>2. Napparsimavoq / Aliasuppoq.<br><b>Assersuut 1:</b> Unnuaq <b>sinilluanngilaq</b>.<br><b>Assersuut 2:</b> <b>Napparsimavoq (ajortumik</b> misigivoq).",
+            "nl": "<b>Uitleg:</b> (Bijwoord) <b>Antoniem:</b> vel (goed).<br>1. Op een slechte manier (slecht).<br>2. Zich ziek of naar voelen (líða illa).<br><b>Voorbeeld 1:</b> Hij sliep vannacht <b>slecht</b>.<br><b>Voorbeeld 2:</b> Ze voelt zich <b>slecht</b>.",
+            "it": "<b>Spiegazione:</b> (Avverbio) <b>Antonimo:</b> vel (bene).<br>1. In modo negativo (male).<br>2. Sentirsi poco bene o triste (líða illa).<br><b>Esempio 1:</b> Ha dormito <b>male</b> stanotte.<br><b>Esempio 2:</b> Lei si sente <b>male</b>.",
+            "ja": "<b>説明:</b> (副詞) <b>対義語:</b> vel (よく)。<br>1. 悪い状態で（悪く・うまくいかない）。<br>2. 気分や体調が悪い（líða illa）。<br><b>例文 1:</b> 彼は昨夜<b>よく</b>眠れませんでした。<br><b>例文 2:</b> 彼女は気分が<b>悪い</b>です。",
+            "zh": "<b>解释:</b> (副词) <b>反义词:</b> vel（好）。<br>1. 不好地、糟糕地。<br>2. 身体不舒服或难受（líða illa）。<br><b>例句 1:</b> 他昨晚睡得<b>不好</b>。<br><b>例句 2:</b> 她感觉<b>不舒服</b>。",
+            "ku": "<b>Ravekirin:</b> (Hoker) <b>Dijwate:</b> vel (baş).<br>1. Bi awayekî xirab.<br>2. Nexweş an xemgîn hîskirin (líða illa).<br><b>Mînak 1:</b> Ew şevê din <b>xirab</b> raza.<br><b>Mînak 2:</b> Ew xwe <b>xirab</b> hîs dike.",
+            "lv": "<b>Paskaidrojums:</b> (Apstākļa vārds) <b>Antonīms:</b> vel (labi).<br>1. Sliktā veidā (slikti).<br>2. Justies neveselam vai bēdīgam (líða illa).<br><b>Piemērs 1:</b> Viņš šonakt <b>slikti</b> gulēja.<br><b>Piemērs 2:</b> Viņa jūtas <b>slikti</b>.",
+            "lt": "<b>Paaiškinimas:</b> (Prieveiksmis) <b>Antonimas:</b> vel (gerai).<br>1. Prastai (blogai).<br>2. Blogai jaustis (líða illa).<br><b>Pavyzdys 1:</b> Jis šiąnakt <b>blogai</b> miegojo.<br><b>Pavyzdys 2:</b> Ji jaučiasi <b>blogai</b>.",
+            "no": "<b>Forklaring:</b> (Adverb) <b>Antonym:</b> vel (godt / bra).<br>1. På en dårlig måte (dårlig).<br>2. Føle seg uvel eller lei seg (líða illa).<br><b>Eksempel 1:</b> Han sov <b>dårlig</b> i natt.<br><b>Eksempel 2:</b> Hun føler seg <b>dårlig</b>.",
+            "fa": "<div dir='rtl'><b>توضیح:</b> (قید) <b>متضاد:</b> vel (خوب).<br>1. به شکل نامطلوب (بد).<br>2. حالِ بد یا ناخوشی داشتن (líða illa).<br><b>مثال 1:</b> او دیشب <b>بد</b> خوابید.<br><b>مثال 2:</b> حال او <b>بد</b> است.</div>",
+            "pt": "<b>Explicação:</b> (Advérbio) <b>Antônimo:</b> vel (bem).<br>1. De maneira ruim (mal).<br>2. Sentir-se doente ou triste (líða illa).<br><b>Exemplo 1:</b> Ele dormiu <b>mal</b> esta noite.<br><b>Exemplo 2:</b> Ela está se sentindo <b>mal</b>.",
+            "pl": "<b>Wyjaśnienie:</b> (Przysłówek) <b>Antonim:</b> vel (dobrze).<br>1. W zły sposób (źle).<br>2. Źle się czuć (líða illa).<br><b>Przykład 1:</b> On <b>źle</b> spał tej nocy.<br><b>Przykład 2:</b> Ona <b>źle</b> się czuje.",
+            "ro": "<b>Explicație:</b> (Adverb) <b>Antonim:</b> vel (bine).<br>1. Într-un mod prost (rău).<br>2. A se simți bolnav sau trist (líða illa).<br><b>Exemplu 1:</b> A dormit <b>rău</b> azi-noapte.<br><b>Exemplu 2:</b> Ea se simte <b>rău</b>.",
+            "ru": "<b>Объяснение:</b> (Наречие) <b>Антоним:</b> vel (хорошо).<br>1. Неудачно, дурно (плохо).<br>2. Плохо себя чувствовать (líða illa).<br><b>Пример 1:</b> Он <b>плохо</b> спал сегодня ночью.<br><b>Пример 2:</b> Ей <b>плохо</b>.",
+            "es": "<b>Explicación:</b> (Adverbio) <b>Antónimo:</b> vel (bien).<br>1. De mala manera (mal).<br>2. Sentirse enfermo o triste (líða illa).<br><b>Ejemplo 1:</b> Él durmió <b>mal</b> anoche.<br><b>Ejemplo 2:</b> Ella se siente <b>mal</b>.",
+            "sv": "<b>Förklaring:</b> (Adverb) <b>Antonym:</b> vel (bra / väl).<br>1. På ett dåligt sätt (illa / dåligt).<br>2. Att må dåligt (líða illa).<br><b>Exempel 1:</b> Han sov <b>dåligt</b> i natt.<br><b>Exempel 2:</b> Hon mår <b>illa (dåligt)</b>.",
+            "th": "<b>คำอธิบาย:</b> (คำกริยาวิเศษณ์) <b>คำตรงข้าม:</b> vel (ดี)<br>1. อย่างไม่ดี (แย่)<br>2. รู้สึกไม่สบายหรือเสียใจ (líða illa)<br><b>ตัวอย่าง 1:</b> เมื่อคืนเขานอนหลับ<b>ไม่ค่อยดี</b><br><b>ตัวอย่าง 2:</b> เธอรู้สึก<b>ไม่สบาย</b>",
+            "de": "<b>Erklärung:</b> (Adverb) <b>Antonym:</b> vel (gut).<br>1. Auf schlechte Weise (schlecht).<br>2. Sich unwohl oder krank fühlen (líða illa).<br><b>Beispiel 1:</b> Er hat heute Nacht <b>schlecht</b> geschlafen.<br><b>Beispiel 2:</b> Ihr geht es <b>schlecht</b>.",
+            "uk": "<b>Пояснення:</b> (Прислівник) <b>Антонім:</b> vel (добре).<br>1. У поганий спосіб (погано).<br>2. Погано почуватися (líða illa).<br><b>Приклад 1:</b> Він <b>погано</b> спав цієї ночі.<br><b>Приклад 2:</b> Їй <b>погано</b>.",
+            "vi": "<b>Giải thích:</b> (Trạng từ) <b>Từ trái nghĩa:</b> vel (tốt).<br>1. Một cách tồi tệ (tệ / kém).<br>2. Cảm thấy mệt hoặc buồn (líða illa).<br><b>Ví dụ 1:</b> Đêm qua anh ấy ngủ <b>không ngon</b>.<br><b>Ví dụ 2:</b> Cô ấy cảm thấy <b>không khỏe</b>."
+        }
+    },
+    { 
+        text: "lítið", 
+        is_exp: "<b>Útskýring:</b> <b>Andheiti:</b> stórt / mikið.<br>1. (Lýsingarorð, hvorugkyn) Smátt að stærð.<br>2. (Atviksorð / Fornafn) Ekki mikið magn.<br><br><b>Dæmi 1:</b> Þetta er <b>lítið</b> hús.<br><b>Dæmi 2:</b> Ég borðaði <b>lítið</b>.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b> <b>مضاد:</b> stórt (كبير) / mikið (كثير).<br>1. (صفة للمحايد) صغير الحجم.<br>2. (ظرف) كمية قليلة (قليلاً).<br><b>مثال 1:</b> هذا منزل <b>صغير</b>.<br><b>مثال 2:</b> أكلت <b>قليلاً</b>.</div>",
+            "be": "<b>Uitleg:</b> <b>Antoniem:</b> stórt (groot) / mikið (veel).<br>1. (Bijvoeglijk naamwoord) Klein van formaat.<br>2. (Bijwoord) Een kleine hoeveelheid (weinig).<br><b>Voorbeeld 1:</b> Dit is een <b>klein</b> huis.<br><b>Voorbeeld 2:</b> Ik heb <b>weinig</b> gegeten.",
+            "da": "<b>Forklaring:</b> <b>Antonym:</b> stórt (stort) / mikið (meget).<br>1. (Tillægsord) Ikke stort af størrelse (lille).<br>2. (Biord) En lille mængde (lidt).<br><b>Eksempel 1:</b> Det er et <b>lille</b> hus.<br><b>Eksempel 2:</b> Jeg spiste <b>lidt</b>.",
+            "en": "<b>Explanation:</b> <b>Antonym:</b> stórt (big) / mikið (much).<br>1. (Adjective, neuter) Small in size (little / small).<br>2. (Adverb) Not a large amount (little).<br><b>Example 1:</b> This is a <b>small</b> house.<br><b>Example 2:</b> I ate <b>little</b>.",
+            "tl": "<b>Paliwanag:</b> <b>Kasalungat:</b> stórt (malaki) / mikið (marami).<br>1. (Pang-uri) Maliit ang sukat.<br>2. (Pang-abay) Kaunti ang dami.<br><b>Halimbawa 1:</b> Ito ay isang <b>maliit</b> na bahay.<br><b>Halimbawa 2:</b> Kumain ako nang <b>kaunti</b>.",
+            "fi": "<b>Selitys:</b> <b>Vastakohta:</b> stórt (suuri) / mikið (paljon).<br>1. (Adjektiivi) Kooltaan pieni.<br>2. (Adverbi) Pieni määrä (vähän).<br><b>Esimerkki 1:</b> Tämä on <b>pieni</b> talo.<br><b>Esimerkki 2:</b> Söin <b>vähän</b>.",
+            "fr": "<b>Explication:</b> <b>Antonyme:</b> stórt (grand) / mikið (beaucoup).<br>1. (Adjectif) De petite taille (petit).<br>2. (Adverbe) En faible quantité (peu).<br><b>Exemple 1:</b> C'est une <b>petite</b> maison.<br><b>Exemple 2:</b> J'ai <b>peu</b> mangé.",
+            "fo": "<b>Frágreiðing:</b> <b>Andheiti:</b> stórt / nógv.<br>1. (Lýsingarorð, hvørkikyn) Smátt til støddar (lítið).<br>2. (Hjáorð) Ikki stór nøgd (lítið).<br><b>Dømi 1:</b> Hetta er eitt <b>lítið</b> hús.<br><b>Dømi 2:</b> Eg át <b>lítið</b>.",
+            "kl": "<b>Nassoqqaat:</b><br>1. (Pissusilerut) Mikisoq.<br>2. (Oqaaseeraq) Annikitsumik.<br><b>Assersuut 1:</b> Una illu <b>mikisuuvoq</b>.<br><b>Assersuut 2:</b> <b>Annikitsumik</b> nerivunga.",
+            "nl": "<b>Uitleg:</b> <b>Antoniem:</b> stórt (groot) / mikið (veel).<br>1. (Bijvoeglijk naamwoord) Klein van formaat.<br>2. (Bijwoord) Niet veel (weinig).<br><b>Voorbeeld 1:</b> Dit is een <b>klein</b> huis.<br><b>Voorbeeld 2:</b> Ik heb <b>weinig</b> gegeten.",
+            "it": "<b>Spiegazione:</b> <b>Antonimo:</b> stórt (grande) / mikið (molto).<br>1. (Aggettivo) Di piccole dimensioni (piccolo).<br>2. (Avverbio) In scarsa quantità (poco).<br><b>Esempio 1:</b> Questa è una casa <b>piccola</b>.<br><b>Esempio 2:</b> Ho mangiato <b>poco</b>.",
+            "ja": "<b>説明:</b> <b>対義語:</b> stórt (大きい) / mikið (たくさん)。<br>1. (形容詞・中性形) サイズが小さい。<br>2. (副詞) 量が少ない（少し）。<br><b>例文 1:</b> これは<b>小さな</b>家です。<br><b>例文 2:</b> 私は<b>少し</b>しか食べませんでした。",
+            "zh": "<b>解释:</b> <b>反义词:</b> stórt（大）/ mikið（多）。<br>1. (形容词，中性) 尺寸小的。<br>2. (副词) 数量少的（很少）。<br><b>例句 1:</b> 这是一座<b>小</b>房子。<br><b>例句 2:</b> 我吃得很<b>少</b>。",
+            "ku": "<b>Ravekirin:</b> <b>Dijwate:</b> stórt (mezin) / mikið (pir).<br>1. (Rengdêr) Biçûk.<br>2. (Hoker) Kêm / hindik.<br><b>Mînak 1:</b> Ev xaniyekî <b>biçûk</b> e.<br><b>Mînak 2:</b> Min <b>hindik</b> xwar.",
+            "lv": "<b>Paskaidrojums:</b> <b>Antonīms:</b> stórt (liels) / mikið (daudz).<br>1. (Īpašības vārds) Neliels pēc izmēra (mazs).<br>2. (Apstākļa vārds) Nelielā daudzumā (maz).<br><b>Piemērs 1:</b> Šī ir <b>maza</b> māja.<br><b>Piemērs 2:</b> Es <b>maz</b> ēdu.",
+            "lt": "<b>Paaiškinimas:</b> <b>Antonimas:</b> stórt (didelis) / mikið (daug).<br>1. (Būdvardis) Nedidelio dydžio (mažas).<br>2. (Prieveiksmis) Nedidelis kiekis (mažai).<br><b>Pavyzdys 1:</b> Tai yra <b>mažas</b> namas.<br><b>Pavyzdys 2:</b> Aš <b>mažai</b> valgiau.",
+            "no": "<b>Forklaring:</b> <b>Antonym:</b> stórt (stort) / mikið (mye).<br>1. (Adjektiv) Liten av størrelse (lite).<br>2. (Adverb) Ikke stor mengde (lite).<br><b>Eksempel 1:</b> Dette er et <b>lite</b> hus.<br><b>Eksempel 2:</b> Jeg spiste <b>lite</b>.",
+            "fa": "<div dir='rtl'><b>توضیح:</b> <b>متضاد:</b> stórt (بزرگ) / mikið (زیاد).<br>1. (صفت) کوچک از نظر اندازه.<br>2. (قید) به مقدار اندک (کم).<br><b>مثال 1:</b> این یک خانه <b>کوچک</b> است.<br><b>مثال 2:</b> من <b>کم</b> غذا خوردم.</div>",
+            "pt": "<b>Explicação:</b> <b>Antônimo:</b> stórt (grande) / mikið (muito).<br>1. (Adjetivo) De tamanho reduzido (pequeno).<br>2. (Advérbio) Em pouca quantidade (pouco).<br><b>Exemplo 1:</b> Esta é uma casa <b>pequena</b>.<br><b>Exemplo 2:</b> Eu comi <b>pouco</b>.",
+            "pl": "<b>Wyjaśnienie:</b> <b>Antonim:</b> stórt (duże) / mikið (dużo).<br>1. (Przymiotnik) Niewielkiego rozmiaru (małe).<br>2. (Przysłówek) Niewielka ilość (mało).<br><b>Przykład 1:</b> To jest <b>mały</b> dom.<br><b>Przykład 2:</b> Zjadłem <b>mało</b>.",
+            "ro": "<b>Explicație:</b> <b>Antonim:</b> stórt (mare) / mikið (mult).<br>1. (Adjectiv) Redus ca mărime (mic).<br>2. (Adverb) În cantitate mică (puțin).<br><b>Exemplu 1:</b> Aceasta este o casă <b>mică</b>.<br><b>Exemplu 2:</b> Am mâncat <b>puțin</b>.",
+            "ru": "<b>Объяснение:</b> <b>Антоним:</b> stórt (большое) / mikið (много).<br>1. (Прилагательное) Небольшое по размеру (маленькое).<br>2. (Наречие) Небольшое количество (мало).<br><b>Пример 1:</b> Это <b>маленький</b> дом.<br><b>Пример 2:</b> Я <b>мало</b> поел.",
+            "es": "<b>Explicación:</b> <b>Antónimo:</b> stórt (grande) / mikið (mucho).<br>1. (Adjetivo) De tamaño reducido (pequeño).<br>2. (Adverbio) En escasa cantidad (poco).<br><b>Ejemplo 1:</b> Esta es una casa <b>pequeña</b>.<br><b>Ejemplo 2:</b> Comí <b>poco</b>.",
+            "sv": "<b>Förklaring:</b> <b>Antonym:</b> stórt (stort) / mikið (mycket).<br>1. (Adjektiv) Liten till storleken (litet).<br>2. (Adverb) Inte stor mängd (lite).<br><b>Exempel 1:</b> Det här är ett <b>litet</b> hus.<br><b>Exempel 2:</b> Jag åt <b>lite</b>.",
+            "th": "<b>คำอธิบาย:</b> <b>คำตรงข้าม:</b> stórt (ใหญ่) / mikið (มาก)<br>1. (คำคุณศัพท์) ขนาดย่อม (เล็ก)<br>2. (คำกริยาวิเศษณ์) ปริมาณไม่มาก (น้อย)<br><b>ตัวอย่าง 1:</b> นี่คือบ้านหลัง<b>เล็ก</b><br><b>ตัวอย่าง 2:</b> ฉันกินไป<b>นิดเดียว (น้อย)</b>",
+            "de": "<b>Erklärung:</b> <b>Antonym:</b> stórt (groß) / mikið (viel).<br>1. (Adjektiv) Gering an Größe (klein).<br>2. (Adverb) Geringe Menge (wenig).<br><b>Beispiel 1:</b> Das ist ein <b>kleines</b> Haus.<br><b>Beispiel 2:</b> Ich habe <b>wenig</b> gegessen.",
+            "uk": "<b>Пояснення:</b> <b>Антонім:</b> stórt (велике) / mikið (багато).<br>1. (Прикметник) Невелике за розміром (маленьке).<br>2. (Прислівник) Невелика кількість (мало).<br><b>Приклад 1:</b> Це <b>маленький</b> будинок.<br><b>Приклад 2:</b> Я <b>мало</b> поїв.",
+            "vi": "<b>Giải thích:</b> <b>Từ trái nghĩa:</b> stórt (lớn) / mikið (nhiều).<br>1. (Tính từ) Kích thước bé (nhỏ).<br>2. (Trạng từ) Số lượng không nhiều (ít).<br><b>Ví dụ 1:</b> Đây là một ngôi nhà <b>nhỏ</b>.<br><b>Ví dụ 2:</b> Tôi đã ăn <b>ít</b>."
+        }
+    },
+    { 
+        text: "áttu", 
+        is_exp: "<b>Útskýring:</b> (Sagnorð, af sögninni 'að eiga')<br>1. Þátíð fleirtala (þau áttu = höfðu í sinni eigu, eða urðu að gera eitthvað).<br>2. Nútíð með samruna við 'þú' (átt + þú = áttu?).<br><br><b>Dæmi 1:</b> Þau <b>áttu</b> stóran bíl.<br><b>Dæmi 2:</b> <b>Áttu</b> penna?",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b> (فعل، من 'يمتلك')<br>1. ماضٍ للجمع: كانوا يملكون.<br>2. سؤال في المضارع (أنتَ تملك؟ / هل لديك؟).<br><b>مثال 1:</b> هم <b>كانوا يملكون</b> سيارة كبيرة.<br><b>مثال 2:</b> <b>هل لديك</b> قلم؟</div>",
+            "be": "<b>Uitleg:</b> (Werkwoord, van 'bezitten / hebben')<br>1. Verleden tijd meervoud: zij hadden.<br>2. Tegenwoordige tijd vraagvorm (heb jij?).<br><b>Voorbeeld 1:</b> Zij <b>hadden</b> een grote auto.<br><b>Voorbeeld 2:</b> <b>Heb je</b> een pen?",
+            "da": "<b>Forklaring:</b> (Udsagnsord, af 'eje / have')<br>1. Datid flertal: de ejede / havde.<br>2. Nutid spørgsmål (har du?).<br><b>Eksempel 1:</b> De <b>havde</b> en stor bil.<br><b>Eksempel 2:</b> <b>Har du</b> en kuglepen?",
+            "en": "<b>Explanation:</b> (Verb, from 'að eiga' = to own/have)<br>1. Past plural: they owned / had (or were supposed to).<br>2. Present contraction of 'átt þú' = do you have?<br><b>Example 1:</b> They <b>owned (had)</b> a big car.<br><b>Example 2:</b> <b>Do you have</b> a pen?",
+            "tl": "<b>Paliwanag:</b> (Pandiwa, mula sa 'magmay-ari / magkaroon')<br>1. Pangnagdaan: nagkaroon sila.<br>2. Pinaikling tanong (mayroon ka ba?).<br><b>Halimbawa 1:</b> <b>Nagkaroon sila</b> ng malaking kotse.<br><b>Halimbawa 2:</b> <b>Mayroon ka bang</b> bolpen?",
+            "fi": "<b>Selitys:</b> (Verbi, sanasta 'omistaa')<br>1. Monikon imperfekti: heillä oli / he omistivat.<br>2. Puhekielinen kysymysmuoto: onko sinulla?<br><b>Esimerkki 1:</b> Heillä <b>oli</b> iso auto.<br><b>Esimerkki 2:</b> <b>Onko sinulla</b> kynää?",
+            "fr": "<b>Explication:</b> (Verbe, de 'posséder / avoir')<br>1. Passé pluriel : ils avaient / possédaient.<br>2. Forme interrogative au présent (as-tu ?).<br><b>Exemple 1:</b> Ils <b>avaient</b> une grande voiture.<br><b>Exemple 2:</b> <b>As-tu</b> un stylo ?",
+            "fo": "<b>Frágreiðing:</b> (Sagnorð, av 'at eiga')<br>1. Tátíð fleirtal: tey áttu.<br>2. Nútíð spurningur (eigir tú?).<br><b>Dømi 1:</b> Tey <b>áttu</b> ein stóran bil.<br><b>Dømi 2:</b> <b>Eigir tú</b> ein penn?",
+            "kl": "<b>Nassoqqaat:</b> (Oqaaseq, pigisaqarpoq)<br>1. Pigisaqarsimapput.<br>2. Peqarpit?<br><b>Assersuut 1:</b> Angisuumik biili<b>uteqarsimapput</b>.<br><b>Assersuut 2:</b> Allaammik <b>peqarpit</b>?",
+            "nl": "<b>Uitleg:</b> (Werkwoord, van 'bezitten / hebben')<br>1. Verleden tijd meervoud: zij hadden.<br>2. Tegenwoordige tijd vraagvorm (heb jij?).<br><b>Voorbeeld 1:</b> Zij <b>hadden</b> een grote auto.<br><b>Voorbeeld 2:</b> <b>Heb je</b> een pen?",
+            "it": "<b>Spiegazione:</b> (Verbo, da 'possedere / avere')<br>1. Passato plurale: loro avevano.<br>2. Forma interrogativa presente (hai tu?).<br><b>Esempio 1:</b> Loro <b>avevano</b> una macchina grande.<br><b>Esempio 2:</b> <b>Hai</b> una penna?",
+            "ja": "<b>説明:</b> (動詞「所有する・持つ」の変化形)<br>1. 過去形・複数：彼らは持っていた。<br>2. 現在形の疑問短縮形（átt þú）：あなたは持っていますか？<br><b>例文 1:</b> 彼らは大きな車を<b>持っていました</b>。<br><b>例文 2:</b> ペンを<b>持っていますか</b>？",
+            "zh": "<b>解释:</b> (动词“拥有”的变化形式)<br>1. 复数过去式：他们曾拥有。<br>2. 现在时疑问缩写（átt þú）：你有吗？<br><b>例句 1:</b> 他们以前<b>有</b>一辆大汽车。<br><b>例句 2:</b> <b>你有</b>笔吗？",
+            "ku": "<b>Ravekirin:</b> (Lêker, ji 'hebûn / xwedî bûn')<br>1. Dema borî: ya wan hebû.<br>2. Pirsa dema niha (ya te heye?).<br><b>Mînak 1:</b> Erebeyeke wan a mezin <b>hebû</b>.<br><b>Mînak 2:</b> Pênûsa te <b>heye</b>?",
+            "lv": "<b>Paskaidrojums:</b> (Darbības vārds, no 'piederēt')<br>1. Pagātnes daudzskaitlis: viņiem piederēja / bija.<br>2. Tagadnes jautājums (vai tev ir?).<br><b>Piemērs 1:</b> Viņiem <b>bija</b> liela mašīna.<br><b>Piemērs 2:</b> <b>Vai tev ir</b> pildspalva?",
+            "lt": "<b>Paaiškinimas:</b> (Veiksmažodis, nuo 'turėti')<br>1. Būtasis laikas: jie turėjo.<br>2. Esamojo laiko klausimas (ar turi?).<br><b>Pavyzdys 1:</b> Jie <b>turėjo</b> didelį automobilį.<br><b>Pavyzdys 2:</b> <b>Ar turi</b> rašiklį?",
+            "no": "<b>Forklaring:</b> (Verb, av 'eie / ha')<br>1. Preteritum flertall: de eide / hadde.<br>2. Presens sammentrekning (har du?).<br><b>Eksempel 1:</b> De <b>hadde</b> en stor bil.<br><b>Eksempel 2:</b> <b>Har du</b> en penn?",
+            "fa": "<div dir='rtl'><b>توضیح:</b> (فعل، از 'داشتن')<br>1. گذشته جمع: آن‌ها داشتند.<br>2. شکل سؤالی در زمان حال (آیا تو داری؟).<br><b>مثال 1:</b> آن‌ها یک ماشین بزرگ <b>داشتند</b>.<br><b>مثال 2:</b> <b>آیا</b> خودکار <b>داری</b>؟</div>",
+            "pt": "<b>Explicação:</b> (Verbo, de 'possuir / ter')<br>1. Passado plural: eles tinham.<br>2. Contração interrogativa no presente (você tem?).<br><b>Exemplo 1:</b> Eles <b>tinham</b> um carro grande.<br><b>Exemplo 2:</b> <b>Você tem</b> uma caneta?",
+            "pl": "<b>Wyjaśnienie:</b> (Czasownik, od 'mieć / posiadać')<br>1. Czas przeszły l.mn.: oni mieli.<br>2. Forma pytająca w czasie teraźniejszym (czy masz?).<br><b>Przykład 1:</b> Oni <b>mieli</b> duży samochód.<br><b>Przykład 2:</b> <b>Masz</b> długopis?",
+            "ro": "<b>Explicație:</b> (Verb, de la 'a avea')<br>1. Trecut plural: ei aveau.<br>2. Întrebare la prezent (ai tu?).<br><b>Exemplu 1:</b> Ei <b>aveau</b> o mașină mare.<br><b>Exemplu 2:</b> <b>Ai</b> un pix?",
+            "ru": "<b>Объяснение:</b> (Глагол, от 'иметь / владеть')<br>1. Прошедшее время мн. ч.: у них было.<br>2. Вопрос в настоящем времени (у тебя есть?).<br><b>Пример 1:</b> У них <b>была</b> большая машина.<br><b>Пример 2:</b> <b>У тебя есть</b> ручка?",
+            "es": "<b>Explicación:</b> (Verbo, de 'tener / poseer')<br>1. Pasado plural: ellos tenían.<br>2. Contracción interrogativa en presente (¿tienes?).<br><b>Ejemplo 1:</b> Ellos <b>tenían</b> un coche grande.<br><b>Ejemplo 2:</b> ¿<b>Tienes</b> un bolígrafo?",
+            "sv": "<b>Förklaring:</b> (Verb, av 'äga / ha')<br>1. Preteritum plural: de ägde / hade.<br>2. Presens sammandragning (har du?).<br><b>Exempel 1:</b> De <b>hade</b> en stor bil.<br><b>Exempel 2:</b> <b>Har du</b> en penna?",
+            "th": "<b>คำอธิบาย:</b> (คำกริยา มาจากคำว่า 'เป็นเจ้าของ / มี')<br>1. รูปอดีตพหูพจน์: พวกเขาเคยมี<br>2. รูปคำถามปัจจุบัน (คุณมี...ไหม?)<br><b>ตัวอย่าง 1:</b> พวกเขา<b>เคยมี</b>รถคันใหญ่<br><b>ตัวอย่าง 2:</b> <b>คุณมี</b>ปากกาไหม?",
+            "de": "<b>Erklärung:</b> (Verb, von 'besitzen / haben')<br>1. Präteritum Plural: sie hatten / besaßen.<br>2. Präsens Frageform (hast du?).<br><b>Beispiel 1:</b> Sie <b>hatten</b> ein großes Auto.<br><b>Beispiel 2:</b> <b>Hast du</b> einen Stift?",
+            "uk": "<b>Пояснення:</b> (Дієслово, від 'мати / володіти')<br>1. Минулий час мн.: у них було.<br>2. Питання в теперішньому часі (у тебе є?).<br><b>Приклад 1:</b> У них <b>була</b> велика машина.<br><b>Приклад 2:</b> <b>Маєш</b> ручку?",
+            "vi": "<b>Giải thích:</b> (Động từ, từ 'sở hữu / có')<br>1. Quá khứ số nhiều: họ đã có.<br>2. Dạng câu hỏi rút gọn ở hiện tại (bạn có... không?).<br><b>Ví dụ 1:</b> Họ <b>đã có</b> một chiếc xe lớn.<br><b>Ví dụ 2:</b> <b>Bạn có</b> cây bút nào không?"
+        }
+    },
+    { 
+        text: "kennari", 
+        is_exp: "<b>Útskýring:</b> (Nafnorð, karlkyn) Starfsheiti manneskju sem kennir nemendum í skóla eða íþróttum (óháð kyni).<br><br><b>Dæmi:</b> Hún er góður <b>kennari</b>.",
+        translations: {
+            "ar": "<div dir='rtl'><b>الشرح:</b> (اسم) الشخص الذي يعلّم الطلاب في المدرسة (معلّم / معلّمة).<br><b>مثال:</b> هي <b>معلّمة</b> جيدة.</div>",
+            "be": "<b>Uitleg:</b> (Zelfstandig naamwoord) Iemand die lesgeeft op school (leerkracht / leraar).<br><b>Voorbeeld:</b> Zij is een goede <b>leerkracht</b>.",
+            "da": "<b>Forklaring:</b> (Navneord) En person, der underviser elever (lærer).<br><b>Eksempel:</b> Hun er en god <b>lærer</b>.",
+            "en": "<b>Explanation:</b> (Noun) A person who teaches students (teacher).<br><b>Example:</b> She is a good <b>teacher</b>.",
+            "tl": "<b>Paliwanag:</b> (Pangngalan) Isang taong nagtuturo sa mga mag-aaral (guro / titser).<br><b>Halimbawa:</b> Siya ay isang mabuting <b>guro</b>.",
+            "fi": "<b>Selitys:</b> (Substantiivi) Henkilö, joka opettaa oppilaita (opettaja).<br><b>Esimerkki:</b> Hän on hyvä <b>opettaja</b>.",
+            "fr": "<b>Explication:</b> (Nom) Personne qui enseigne aux élèves (professeur / enseignant).<br><b>Exemple:</b> C'est une bonne <b>enseignante</b>.",
+            "fo": "<b>Frágreiðing:</b> (Navnorð) Persónur, sum undirvísir næmingum (lærari).<br><b>Dømi:</b> Hon er ein góður <b>lærari</b>.",
+            "kl": "<b>Nassoqqaat:</b> (Taggit) Ilinniartitsisoq.<br><b>Assersuut:</b> Pikkorissumik <b>ilinniartitsisuuvoq</b>.",
+            "nl": "<b>Uitleg:</b> (Zelfstandig naamwoord) Iemand die lesgeeft op school (leraar / docent).<br><b>Voorbeeld:</b> Zij is een goede <b>leraar</b>.",
+            "it": "<b>Spiegazione:</b> (Sostantivo) Persona che insegna agli studenti (insegnante).<br><b>Esempio:</b> Lei è una brava <b>insegnante</b>.",
+            "ja": "<b>説明:</b> (名詞) 学校などで生徒に教える人（先生・教師）。<br><b>例文:</b> 彼女は良い<b>先生</b>です。",
+            "zh": "<b>解释:</b> (名词) 教导学生的人（老师、教师）。<br><b>例句:</b> 她是一位好<b>老师</b>。",
+            "ku": "<b>Ravekirin:</b> (Navdêr) Kesê ku dersê dide xwendekaran (mamoste).<br><b>Mînak:</b> Ew <b>mamosteyeke</b> baş e.",
+            "lv": "<b>Paskaidrojums:</b> (Lietvārds) Cilvēks, kurš māca skolēnus (skolotājs / skolotāja).<br><b>Piemērs:</b> Viņa ir laba <b>skolotāja</b>.",
+            "lt": "<b>Paaiškinimas:</b> (Daiktavardis) Žmogus, kuris moko mokinius (mokytojas / mokytoja).<br><b>Pavyzdys:</b> Ji yra gera <b>mokytoja</b>.",
+            "no": "<b>Forklaring:</b> (Substantiv) En person som underviser elever (lærer).<br><b>Eksempel:</b> Hun er en god <b>lærer</b>.",
+            "fa": "<div dir='rtl'><b>توضیح:</b> (اسم) کسی که به دانش‌آموزان آموزش می‌دهد (معلم).<br><b>مثال:</b> او <b>معلم</b> خوبی است.</div>",
+            "pt": "<b>Explicação:</b> (Substantivo) Pessoa que ensina alunos (professor / professora).<br><b>Exemplo:</b> Ela é uma boa <b>professora</b>.",
+            "pl": "<b>Wyjaśnienie:</b> (Rzeczownik) Osoba ucząca w szkole (nauczyciel / nauczycielka).<br><b>Przykład:</b> Ona jest dobrą <b>nauczycielką</b>.",
+            "ro": "<b>Explicație:</b> (Substantiv) Persoană care predă elevilor (profesor / profesoară).<br><b>Exemplu:</b> Ea este o <b>profesoară</b> bună.",
+            "ru": "<b>Объяснение:</b> (Существительное) Человек, который обучает учеников (учитель / преподаватель).<br><b>Пример:</b> Она хороший <b>учитель</b>.",
+            "es": "<b>Explicación:</b> (Sustantivo) Persona que enseña a los estudiantes (profesor / maestro).<br><b>Ejemplo:</b> Ella es una buena <b>profesora</b>.",
+            "sv": "<b>Förklaring:</b> (Substantiv) En person som undervisar elever (lärare).<br><b>Exempel:</b> Hon är en bra <b>lärare</b>.",
+            "th": "<b>คำอธิบาย:</b> (คำนาม) ผู้ที่สอนนักเรียนในโรงเรียน (ครู / อาจารย์)<br><b>ตัวอย่าง:</b> เธอเป็น<b>ครู</b>ที่ดี",
+            "de": "<b>Erklärung:</b> (Substantiv) Eine Person, die Schüler unterrichtet (Lehrer / Lehrerin).<br><b>Beispiel:</b> Sie ist eine gute <b>Lehrerin</b>.",
+            "uk": "<b>Пояснення:</b> (Іменник) Людина, яка навчає учнів (вчитель / викладач).<br><b>Приклад:</b> Вона хороший <b>вчитель</b>.",
+            "vi": "<b>Giải thích:</b> (Danh từ) Người dạy học sinh ở trường (giáo viên).<br><b>Ví dụ:</b> Cô ấy là một <b>giáo viên</b> giỏi."
+        }
+    }
+];
+
+let userScores = new Array(exerciseData.length).fill(null);
+let userSpoken = new Array(exerciseData.length).fill("");
+
+let currentIndex = 0;
+let recognition;
+let isRecording = false;
+let autoAdvanceTimer = null;
+let hasDownloadedCert = false;
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'is-IS';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    
+    recognition.onend = () => {
+        isRecording = false;
+        const btn = document.getElementById('record-btn');
+        if (btn) {
+            btn.innerText = "🎤 Tala";
+            btn.classList.remove('recording');
+        }
+        
+        const resDiv = document.getElementById('result');
+        if (resDiv && resDiv.innerText === "Hlusta...") {
+            resDiv.innerText = "";
+        }
+    };
+} else {
+    alert("Þessi vafri styður ekki talgreiningu. Notaðu Chrome eða Edge á tölvu.");
+}
+
+window.onload = () => { 
+    updateUI(); 
+};
+
+function updateProgress() {
+    let correctCount = 0;
+    for (let i = 0; i < userScores.length; i++) {
+        if (userScores[i] === 100) {
+            correctCount++;
+        }
+    }
+    const percent = (correctCount / exerciseData.length) * 100;
+    
+    const progressBar = document.getElementById('progress-bar');
+    if(progressBar) {
+        progressBar.style.width = percent + '%';
+    }
+    return correctCount;
+}
+
+function findNextUnfinished() {
+    for (let i = 0; i < userScores.length; i++) {
+        if (userScores[i] !== 100) {
+            currentIndex = i;
+            break;
+        }
+    }
+    
+    document.getElementById('app').innerHTML = `
+        <h1>Markorð: 281 - 290 algengustu í íslenskum námsbókum</h1>
+        <div class="progress-container"><div id="progress-bar"></div></div>
+        
+        <div class="lang-selector">
+            <label for="languageSelect"><b>🌍 Tungumál:</b></label>
+            <select id="languageSelect" onchange="updateUI()">
+                <option value="" selected disabled>Veldu tungumál...</option>
+                <option value="ar">Arabíska – العربية</option>
+                <option value="be">Belgíska (Flæmska) – Vlaams</option>
+                <option value="da">Danska – Dansk</option>
+                <option value="en">Enska – English</option>
+                <option value="tl">Filippseyska – Tagalog</option>
+                <option value="fi">Finnska – Suomi</option>
+                <option value="fr">Franska – Français</option>
+                <option value="fo">Færeyska – Føroyskt</option>
+                <option value="kl">Grænlenska – Kalaallisut</option>
+                <option value="nl">Hollenska – Nederlands</option>
+                <option value="it">Ítalska – Italiano</option>
+                <option value="ja">Japanska – 日本語</option>
+                <option value="zh">Kínverska – 中文</option>
+                <option value="ku">Kúrdíska – Kurdî</option>
+                <option value="lv">Lettneska – Latviešu</option>
+                <option value="lt">Litháíska – Lietuvių</option>
+                <option value="no">Norska – Norsk</option>
+                <option value="fa">Persneska – فارسی</option>
+                <option value="pt">Portúgalska – Português</option>
+                <option value="pl">Pólska – Polski</option>
+                <option value="ro">Rúmenska – Română</option>
+                <option value="ru">Rússneska – Русский</option>
+                <option value="es">Spænska – Español</option>
+                <option value="sv">Sænska – Svenska</option>
+                <option value="th">Tælenska – ภาษาไทย</option>
+                <option value="de">Þýska – Deutsch</option>
+                <option value="uk">Úkraínska – Українська</option>
+                <option value="vi">Víetnamska – Tiếng Việt</option>
+            </select>
+        </div>
+
+        <div id="counter"></div>
+        <div id="target"></div>
+        <div id="is-explanation"></div>
+        <br>
+        <button id="record-btn" class="btn" onclick="toggleRecord()">🎤 Tala</button>
+        <div id="spoken"></div>
+        <div id="result"></div>
+        <div id="media-box"></div>
+        <div class="nav-btns">
+            <button class="btn" style="background-color: #5f6368;" onclick="prevExercise()">⬅️ Fyrri</button>
+            <button class="btn" style="background-color: #5f6368;" onclick="nextExercise()">Næsta ➡️</button>
+        </div>
+        <div class="feedback-note">
+            Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+        </div>
+    `;
+    updateUI();
+}
+
+function updateUI() {
+    clearTimeout(autoAdvanceTimer); 
+    const correctCount = updateProgress();
+
+    if (currentIndex >= exerciseData.length) {
+        if (correctCount === exerciseData.length) {
+            document.getElementById('app').innerHTML = `
+                <div class="progress-container"><div id="progress-bar" style="width: 100%;"></div></div>
+                <h1 style="color: #34a853; font-size: 2.5em;">Frábært! Þú náðir 100% árangri! 🎉</h1>
+                <p style="font-size: 1.2em; color: #555;">Skrifaðu nafnið þitt hér að neðan til að sækja viðurkenningarskjalið þitt.</p>
+                <input type="text" id="studentName" placeholder="Skrifaðu nafnið þitt hér" autocomplete="off" ${hasDownloadedCert ? 'disabled' : ''}><br>
+                <button id="cert-btn" class="btn" style="background-color: ${hasDownloadedCert ? '#5f6368' : '#1a73e8'}; font-size: 1.5em; padding: 15px 30px; margin-top: 10px; cursor: ${hasDownloadedCert ? 'not-allowed' : 'pointer'}; opacity: ${hasDownloadedCert ? '0.7' : '1'};" onclick="downloadCert()" ${hasDownloadedCert ? 'disabled' : ''}>
+                    ${hasDownloadedCert ? '✅ Skjal sótt' : '🏆 Sækja viðurkenningarskjal'}
+                </button>
+                <br><br>
+                <button class="btn" style="background-color: #5f6368;" onclick="location.reload()">🔄 Byrja nýja umferð</button>
+                <div class="feedback-note">
+                    Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+                </div>
+            `;
+        } else {
+            document.getElementById('app').innerHTML = `
+                <div class="progress-container"><div id="progress-bar" style="width: ${(correctCount/exerciseData.length)*100}%;"></div></div>
+                <h1 style="color: #fbbc05; font-size: 2em;">Þú ert næstum því búin(n)!</h1>
+                <p style="font-size: 1.2em;">Þú hefur klárað ${correctCount} af ${exerciseData.length} orðum með 100% árangri.</p>
+                <p style="font-size: 1.1em; color: #555;">Farðu til baka og reyndu aftur við þau orð sem vantaði upp á til að fá skjalið.</p>
+                <button class="btn" style="background-color: #fbbc05; color: #000;" onclick="findNextUnfinished()">➡️ Fara á orð sem vantar</button>
+                <div class="feedback-note">
+                    Vinsamlegast sendið ábendingar á <a href="mailto:dgu@fb.is">dgu@fb.is</a>
+                </div>
+            `;
+        }
+        return;
+    }
+
+    const curr = exerciseData[currentIndex];
+    
+    const langSelect = document.getElementById('languageSelect');
+    const selectedLang = langSelect ? langSelect.value : '';
+
+    document.getElementById('target').innerHTML = curr.text;
+    document.getElementById('is-explanation').innerHTML = curr.is_exp;
+    document.getElementById('counter').innerText = `Orð ${currentIndex + 1} af ${exerciseData.length}`;
+    
+    if (!selectedLang) {
+        document.getElementById('media-box').innerHTML = "<i>Veldu tungumál úr listanum að ofan til að sjá þýðingu.</i>";
+    } else {
+        document.getElementById('media-box').innerHTML = curr.translations[selectedLang] || "Þýðing ekki til / Translation missing";
+    }
+
+    const savedScore = userScores[currentIndex];
+    const savedText = userSpoken[currentIndex];
+
+    if (savedScore !== null) {
+        document.getElementById('result').innerText = `Einkunn: ${savedScore}%`;
+        document.getElementById('spoken').innerText = `Þú sagðir: "${savedText}"`;
+    } else {
+        document.getElementById('result').innerText = "";
+        document.getElementById('spoken').innerText = "";
+    }
+}
+
+function nextExercise() {
+    currentIndex++;
+    updateUI();
+}
+
+function prevExercise() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateUI();
+    }
+}
+
+function toggleRecord() {
+    if (!recognition) return;
+
+    const btn = document.getElementById('record-btn');
+    if (isRecording) {
+        recognition.stop();
+    } else {
+        try {
+            recognition.start();
+            isRecording = true;
+            btn.innerText = "🛑 Hlusta...";
+            btn.classList.add('recording');
+            document.getElementById('result').innerText = "Hlusta...";
+            document.getElementById('spoken').innerText = "";
+        } catch(e) {
+            console.log("Villa í upptöku: " + e);
+        }
+    }
+}
+
+if (recognition) {
+    recognition.onresult = (event) => {
+        let spoken = event.results[0][0].transcript;
+        spoken = spoken.trim().toLowerCase(); 
+
+        document.getElementById('spoken').innerText = `Þú sagðir: "${spoken}"`;
+        
+        const targetWord = exerciseData[currentIndex].text.toLowerCase();
+        
+        let score = (spoken === targetWord) ? 100 : 0;
+        
+        if (spoken.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"").trim() === targetWord) {
+            score = 100;
+        }
+        
+        document.getElementById('result').innerText = `Einkunn: ${score}%`;
+
+        userScores[currentIndex] = score;
+        userSpoken[currentIndex] = spoken;
+        
+        updateProgress();
+
+        if (score === 100) {
+            autoAdvanceTimer = setTimeout(() => {
+                nextExercise();
+            }, 1000); 
+        }
+    };
+}
+
+function downloadCert() {
+    if (hasDownloadedCert) return; 
+
+    const studentNameInput = document.getElementById('studentName');
+    const studentName = studentNameInput ? studentNameInput.value.trim() : "";
+    
+    if (studentName === "") {
+        alert("Vinsamlegast skrifaðu nafnið þitt fyrst!");
+        return;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 900;
+    canvas.height = 600;
+    const ctx = canvas.getContext('2d');
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.strokeStyle = '#1a73e8';
+    ctx.lineWidth = 15;
+    ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+    ctx.strokeStyle = '#fbbc05';
+    ctx.lineWidth = 5;
+    ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+    
+    ctx.fillStyle = '#1a73e8';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 50px Arial';
+    ctx.fillText('Viðurkenning', canvas.width / 2, 140);
+    
+    ctx.fillStyle = '#333333';
+    ctx.font = '24px Arial';
+    ctx.fillText('Þetta skjal staðfestir að', canvas.width / 2, 220);
+    
+    ctx.fillStyle = '#000000';
+    ctx.font = 'bold 45px Arial';
+    ctx.fillText(studentName, canvas.width / 2, 290);
+    
+    ctx.fillStyle = '#333333';
+    ctx.font = '24px Arial';
+    ctx.fillText('hefur lokið æfingunni með glæsibrag:', canvas.width / 2, 360);
+
+    ctx.fillStyle = '#1a73e8';
+    ctx.font = 'bold 26px Arial';
+    ctx.fillText('Markorð: 281 - 290 algengustu í íslenskum námsbókum', canvas.width / 2, 420);
+    
+    ctx.fillStyle = '#34a853';
+    ctx.font = 'italic 28px Arial';
+    ctx.fillText('Frábær árangur! Haltu áfram að æfa þig.', canvas.width / 2, 490);
+
+    const dateString = new Date().toLocaleDateString('is-IS');
+    ctx.fillStyle = '#666666';
+    ctx.font = '18px Arial';
+    ctx.fillText('Dagsetning: ' + dateString, canvas.width / 2, 540);
+    
+    const link = document.createElement('a');
+    link.download = `Vidurkenning_${studentName.replace(/\s+/g, '_')}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+    hasDownloadedCert = true;
+    const btn = document.getElementById('cert-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = "✅ Skjal sótt";
+        btn.style.backgroundColor = "#5f6368";
+        btn.style.cursor = "not-allowed";
+        btn.style.opacity = "0.7";
+    }
+    if (studentNameInput) {
+        studentNameInput.disabled = true;
+    }
+}
+</script>
+
+</body>
+</html>
